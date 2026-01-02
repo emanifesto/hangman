@@ -1,4 +1,4 @@
-# :clipboard:This project will comprise of several ==core== components listed below:
+# :clipboard:This project will comprise of several **core** components listed below:
 
 - [ ] OAuth :triangular_flag_on_post:
 - [ ] Leaderboard :1234:
@@ -25,11 +25,11 @@ This is something I just recently thought of that will improve user experience a
 
 ## Game :video_game:
 
-The biggest component, obviously. :triumph: I think it's best to break it down into three aspects **what you see**, **game flow**, and **scoring system**:
+The biggest component, obviously. :triumph: I think it's best to break it down into three aspects; **frontend**, **game flow**, and **scoring system**:
 
-### What you see - Frontend Render
+### Frontend Render
 
-This will consist of the body parts in boxes:sweat:, the word to be solved, and popup keyboard. Now that I think about it, ***future updates could consist of hints and multiple sections not limited to vocabulary, maybe even selectable sections*** Currently I will set it up to where vocabulary words are fetched from a dictionary API.
+This will consist of the body parts in boxes :sweat:, the word to be solved, and popup keyboard. Now that I think about it, ***future updates could consist of hints and multiple sections not limited to vocabulary, maybe even selectable sections*** Currently I will set it up to where vocabulary words are fetched from a dictionary API.
 
 ### Game Flow
 
@@ -81,6 +81,5 @@ A small popup showing player stats: username, games completed, full word guesses
 User table - Essentially a collection of Profiles + OAuth verification
 Scoreboard - Username and score (probably not going to exist)
 
---
 
 > ### Later feature updates include but are not limited to ***audio, animations, difficulty levels, other languages, multiplayer, etc.***
