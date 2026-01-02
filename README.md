@@ -1,33 +1,29 @@
 # :clipboard:This project will comprise of several ==core== components listed below:
 
-- [ ] OAuth:triangular_flag_on_post:
-- [ ] Leaderboard:1234:
-- [ ] Timer:hourglass:
-- [ ] Game (I/O):video_game:
-- [ ] Profile:file_folder:
-- [ ] Database:link:
+- [ ] OAuth :triangular_flag_on_post:
+- [ ] Leaderboard :1234:
+- [ ] Timer :hourglass:
+- [ ] Game (I/O) :video_game:
+- [ ] Profile :file_folder:
+- [ ] Database :link:
 
----
 
-## OAuth
+## OAuth :triangular_flag_on_post:
 
 This component is more functional rather than physical. The purpose is to allow users to save their score and be added to the scoreboard. Some logic is needed here to prompt users to login, most likely a popup after first game is finished and a permanent block next to leaderboard component.
 
----
 
-## Leaderboard
+## Leaderboard :1234:
 
 One of the prime reasons for this project, I have a future project that is a lot more purpose-driven that will also require a leaderboard. Different displays of the leaderboard with be 1 day, 1 week, and all-time. Weighing the choices of having the leaderboard it's own table in my DB or rendered and queried from the user table. *Will give an update on my decision later.*
 
----
 
-## Timer
+## Timer :hourglass:
 
 This is something I just recently thought of that will improve user experience a lot by adding some stakes. I want to implement it as bar waning from right to left. 1 min to 45 seconds is probably good.
 
----
 
-## Game
+## Game :video_game:
 
 The biggest component, obviously. :triumph: I think it's best to break it down into three aspects **what you see**, **game flow**, and **scoring system**:
 
@@ -74,19 +70,17 @@ playAgain() //or see leaderboard
 
 Score will be calculated on game end and will be a result of multiple factors: time left, guesses left, letters left *if* full word is guess, and letters correct *if* out of guesses or time.
 
----
 
-## Profile
+## Profile :file_folder:
 
 A small popup showing player stats: username, games completed, full word guesses, 1 day score, 1 week score, all-time score, date joined, etc. Have to filter out bad names. Info will be pulled from database.
 
----
 
-## Database
+## Database :link:
 
 User table - Essentially a collection of Profiles + OAuth verification
-?Scoreboard - Probably not going to exist
+Scoreboard - Username and score (probably not going to exist)
 
----
+--
 
 > ### Later feature updates include but are not limited to ***audio, animations, difficulty levels, other languages, multiplayer, etc.***
