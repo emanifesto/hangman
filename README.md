@@ -1,3 +1,8 @@
+# UI Rough Draft
+
+![Hangman Frontend Components Mockup](/src/assets/hangman_component_mockup.png)
+
+
 # :clipboard:This project will comprise of several **core** components listed below:
 
 - [ ] OAuth :triangular_flag_on_post:
