@@ -1,8 +1,3 @@
-# UI Rough Draft
-
-![Hangman Frontend Components Mockup](/src/assets/hangman_component_mockup.png)
-
-
 # :clipboard:This project will comprise of several **core** components listed below:
 
 - [ ] OAuth :triangular_flag_on_post:
@@ -88,3 +83,8 @@ Scoreboard - Username and score (probably not going to exist)
 
 
 > ### Later feature updates include but are not limited to ***audio, animations, difficulty levels, other languages, multiplayer, etc.***
+
+
+# UI Rough Draft
+
+![Hangman Frontend Components Mockup](/src/assets/hangman_component_mockup.png)
