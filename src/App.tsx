@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <NavigationMenu menuSelection={'home'}>
-        <p>The AI bubble will pop soon</p>
+        <p>Word for word, Bar for bar</p>
       </NavigationMenu>
     </>
   )
