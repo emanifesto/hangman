@@ -1,18 +1,16 @@
 import { useState } from 'react'
 import NavigationMenu from './components/nav'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [menuSelection, setMenuSelection] = useState<string>('Home')
+  
   return (
-    <>
-      <NavigationMenu menuSelection={'home'}>
-        <p>Word for word, Bar for bar</p>
+    <main className="m-auto w-4/5">
+      <NavigationMenu menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
+        <p>Something!</p>
       </NavigationMenu>
-    </>
+    </main>
   )
 }
 

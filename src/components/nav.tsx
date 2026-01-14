@@ -1,11 +1,12 @@
-export default function NavigationMenu( {menuSelection, children}: {menuSelection: string, children: any}){
-
+export default function NavigationMenu( {menuSelection, setMenuSelection, children}: {menuSelection: string, setMenuSelection: Function, children: any}){
+    const menuClickHandler: Function = (value: string) => {setMenuSelection(value)}
+    
     return (
         <>
-            <div className="m-auto w-4/5 bg-blue-400/50 place-items-center mb-10 border-b-6 rounded-xl border-black/40">
+            <div className="py-1  bg-blue-300 place-items-center mb-10 border-b-6 rounded-xl border-black/40">
                 <div className="flex">
-                    <HomeButton item={menuSelection}/>
-                    <LeaderboardButton item={menuSelection} />
+                    <HomeButton item={menuSelection} menuClick={menuClickHandler}/>
+                    <LeaderboardButton item={menuSelection} menuClick={menuClickHandler}/>
                 </div>
             </div>
             {children}
@@ -13,19 +14,22 @@ export default function NavigationMenu( {menuSelection, children}: {menuSelectio
     )
 }
 
-function HomeButton ( {item}: {item: string} ){
-    const design = item === "home" ? selected : unselected
+function HomeButton ( {item, menuClick}: {item: string, menuClick: Function} ){
+    const text: string = 'Home'
+    const design: string = item === text ? selected : unselected
     return(
-        <p className={design}>Home</p>
+        <button className={design} onClick={() => {menuClick(text)}}>{text}</button>
     )
 }
 
-function LeaderboardButton ( {item}: {item: string} ){
-    const design:string = item === "leaderboard" ? selected : unselected
+function LeaderboardButton ( {item, menuClick}: {item: string, menuClick: Function} ){
+    const text: string = "Leaderboard"
+    const design:string = item === text ? selected : unselected
+
     return (
-        <p className={design}>Leaderboard</p>
+        <button className={design} onClick={() => {menuClick(text)}}>{text}</button>
     )
 }
 
-const selected: string = "text-2xl p-3 rounded-2xl bg-blue-400"
+const selected: string = "text-2xl p-3 rounded-2xl bg-blue-400/70"
 const unselected: string = "text-2xl p-3"
