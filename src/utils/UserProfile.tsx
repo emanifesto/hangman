@@ -11,8 +11,8 @@ interface Stats{
     flawless_games: number;
 }
 
-interface Profile{
-    username: string;
+export interface Profile{
+    name: string;
     date_joined: Date;
     daily: Stats;
     weekly: Stats;

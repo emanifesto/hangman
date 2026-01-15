@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import NavigationMenu from './components/nav'
+import NavigationMenu from './components/nav.tsx'
+import Profile from './components/home/profile.tsx'
+
 import './App.css'
 
 function App() {
@@ -9,7 +11,7 @@ function App() {
   return (
     <main className="m-auto w-4/5">
       <NavigationMenu menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
-        <p>Something!</p>
+        <Profile />
       </NavigationMenu>
     </main>
   )
