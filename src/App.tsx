@@ -4,6 +4,7 @@ import './App.css'
 
 function App() {
   const [menuSelection, setMenuSelection] = useState<string>('Home')
+  const [isLoggedin, setLoggedIn] = useState<boolean>(false)
   
   return (
     <main className="m-auto w-4/5">
