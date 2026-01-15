@@ -41,11 +41,13 @@ export default class UserProfile{
         const games_total: number[] = [(daily_games_won + daily_games_lost),
             (weekly_games_won + weekly_games_lost), (all_time_games_won + all_time_games_lost)]
 
-        const speed: number[] = [(daily_time_played / games_total[0]),
-            (weekly_time_played / games_total[1]), (all_time_time_played / games_total[2])]
+        const speed: number[] = [roundNumber(daily_time_played / games_total[0]),
+            roundNumber(weekly_time_played / games_total[1]),
+            roundNumber(all_time_time_played / games_total[2])]
 
-        const accuracy: number[] = [(daily_lives_left / games_total[0]),
-            (weekly_lives_left / games_total[1]), (all_time_lives_left / games_total[2])]
+        const accuracy: number[] = [roundNumber(((daily_lives_left / games_total[0]) / 7) * 100),
+            roundNumber(((weekly_lives_left / games_total[1]) / 7) * 100),
+            roundNumber(((all_time_lives_left / games_total[2]) / 7) * 100)]
 
         this.daily = {games_won: daily_games_won,
             games_lost: daily_games_lost, games_total: games_total[0],
@@ -65,4 +67,11 @@ export default class UserProfile{
             accuracy: accuracy[2], flawless_games: all_time_flawless_games,
         }
     }
+}
+
+const roundNumber: Function = (n: number): number => {
+    n = n * 10
+    n = Math.round(n)
+    n = n / 10
+    return n
 }
