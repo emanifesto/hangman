@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import NavigationMenu from './components/nav.tsx'
-import Home from './components/home.tsx'
+import NavigationMenu from './pages/nav.tsx'
+import Home from './pages/home.tsx'
 import './App.css'
 
 function App() {

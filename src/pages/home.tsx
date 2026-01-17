@@ -1,6 +1,6 @@
-import Profile from './home/profile.tsx'
-import PlayButton from './home/play.tsx'
-import LoginButton from './home/login.tsx'
+import Profile from '../components/home/profile.tsx'
+import PlayButton from '../components/home/play.tsx'
+import LoginButton from '../components/home/login.tsx'
 
 export default function Home(){
     return(
