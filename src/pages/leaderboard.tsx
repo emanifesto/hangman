@@ -1,7 +1,11 @@
 import LoginBanner from '../components/leaderboard/banner.tsx'
+import Leaderboard from '../components/leaderboard/leaderboard.tsx'
 
-export default function Leaderboard(){
+export default function LeaderboardPage(){
     return(
-        <LoginBanner />
+        <div>
+            <LoginBanner />
+            <Leaderboard />
+        </div>
     )
 }
