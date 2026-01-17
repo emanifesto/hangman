@@ -7,21 +7,33 @@ export default function Profile(){
 
     return(
         <div className="border-3 min-h-50 ">
-            <div className="border-1 mt-3 w-[95%] mx-auto"></div>
+            <User />
+            <div className="border-1 w-[95%] mx-auto"></div>
             <Info />
         </div>
     )
 }
 
 function User(){
-
+    return(
+        <div className="flex text-xs gap-4 justify-center place-items-center my-3">
+            <div className="flex gap-2 items-center">
+                <p className="font-bold">Username:</p>
+                <input placeholder="enter name..." className="bg-black text-white rounded-xl py-1 text-center" />
+            </div>
+            <div className="flex gap-2">
+                <p className="font-bold">Date Joined:</p>
+                <p>{user.date_joined.toDateString()}</p>
+            </div>
+        </div>
+    )
 }
 
 function Info(){
     return (
         <div className="text-xs">
             <h1 className="text-2xl w-min ml-4">Stats</h1>
-            <table className="mx-auto border-spacing-x-7.5 border-spacing-y-3 border-separate">
+            <table className="mx-auto border-spacing-x-7.5 border-spacing-y-2 border-separate">
                 <thead>
                     <th></th>
                     <th><p>Daily</p></th>
