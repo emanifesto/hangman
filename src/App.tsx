@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import NavigationMenu from './components/nav.tsx'
-import Profile from './components/home/profile.tsx'
-
+import Home from './components/home.tsx'
 import './App.css'
 
 function App() {
@@ -11,7 +10,7 @@ function App() {
   return (
     <main className="m-auto w-4/5">
       <NavigationMenu menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
-        <Profile />
+        <Home />
       </NavigationMenu>
     </main>
   )

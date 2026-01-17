@@ -8,7 +8,7 @@ export default function Profile(){
     return(
         <div className="border-3 min-h-50 ">
             <User />
-            <div className="border-1 w-[95%] mx-auto"></div>
+            <div className="border w-[95%] mx-auto"></div>
             <Info />
         </div>
     )
