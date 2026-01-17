@@ -3,7 +3,7 @@ export default function NavigationMenu( {menuSelection, setMenuSelection, childr
     
     return (
         <>
-            <div className="py-1  bg-blue-300 place-items-center mb-6 border-b-6 rounded-xl border-black/40">
+            <div className="py-1  bg-blue-300 place-items-center border-b-6 rounded-xl border-black/40">
                 <div className="flex">
                     <HomeButton item={menuSelection} menuClick={menuClickHandler}/>
                     <LeaderboardButton item={menuSelection} menuClick={menuClickHandler}/>
