@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import NavigationMenu from './pages/nav.tsx'
 import Home from './pages/home.tsx'
+import Leaderboard from './pages/leaderboard.tsx'
 import './App.css'
 
 function App() {
