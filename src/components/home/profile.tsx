@@ -16,10 +16,10 @@ export default function Profile(){
 
 function User(){
     return(
-        <div className="flex text-xs gap-4 justify-center place-items-center my-3">
+        <div className="flex flex-wrap gap-y-2 justify-center my-3">
             <div className="flex gap-2 items-center">
                 <p className="font-bold">Username:</p>
-                <input placeholder="enter name..." className="bg-black text-white rounded-xl py-1 text-center" />
+                <input placeholder="enter name..." className="bg-black text-white w-[15ch] rounded-xl py-1 text-center" />
             </div>
             <div className="flex gap-2">
                 <p className="font-bold">Date Joined:</p>

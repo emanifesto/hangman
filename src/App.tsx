@@ -11,7 +11,7 @@ function App() {
   return (
     <main className="m-auto w-4/5">
       <NavigationMenu menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
-        <Home />
+        <Leaderboard />
       </NavigationMenu>
     </main>
   )
