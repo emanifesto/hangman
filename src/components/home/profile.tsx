@@ -6,7 +6,7 @@ const user: Profile = new UserProfile('Emmanuel', new Date('Wed Jan 14 2026')
 export default function Profile(){
 
     return(
-        <div className="border-3 min-h-50 ">
+        <div className="border-3 w-[95%]">
             <User />
             <div className="border w-[95%] mx-auto"></div>
             <Info />
@@ -31,9 +31,46 @@ function User(){
 
 function Info(){
     return (
-        <div className="text-xs">
-            <h1 className="text-2xl w-min ml-4">Stats</h1>
-            <table className="mx-auto border-spacing-x-7.5 border-spacing-y-2 border-separate">
+        <div className="flex px-5 justify-between">
+            {/* <h1 className="text-2xl w-min ml-4">Stats</h1> */}
+            <div className="font-extrabold mt-6">
+                <p>Games (W/L/Total)</p>
+                <p>Score</p>
+                <p>Speed</p>
+                <p>Accuracy</p>
+                <p>Predictions</p>
+                <p>Flawless Games</p>
+            </div>
+            <div className="flex w-[35%] overflow-x-auto snap-x snap-mandatory">
+                <div className="shrink-0 basis-1/1 snap-center">
+                    <p className="font-extrabold">Daily</p>
+                    <p>{user.daily.games_won + ' / ' + user.daily.games_lost + ' / ' + user.daily.games_total}</p>
+                    <p>{user.daily.score}</p>
+                    <p>{user.daily.speed}</p>
+                    <p>{user.daily.accuracy}</p>
+                    <p>{user.daily.predictions}</p>
+                    <p>{user.daily.flawless_games}</p>
+                </div>
+                <div className="shrink-0 basis-1/1 snap-center">
+                    <p className="font-extrabold">Weekly</p>
+                    <p>{user.weekly.games_won + ' / ' + user.weekly.games_lost + ' / ' + user.weekly.games_total}</p>
+                    <p>{user.weekly.score}</p>
+                    <p>{user.weekly.speed}</p>
+                    <p>{user.weekly.accuracy}</p>
+                    <p>{user.weekly.predictions}</p>
+                    <p>{user.weekly.flawless_games}</p>
+                </div>
+                <div className="shrink-0 basis-1/1 snap-center">
+                    <p className="font-extrabold">All-Time</p>
+                    <p>{user.all_time.games_won + ' / ' + user.all_time.games_lost + ' / ' + user.all_time.games_total}</p>
+                    <p>{user.all_time.score}</p>
+                    <p>{user.all_time.speed}</p>
+                    <p>{user.all_time.accuracy}</p>
+                    <p>{user.all_time.predictions}</p>
+                    <p>{user.all_time.flawless_games}</p>
+                </div>
+            </div>
+            {/* <table className="mx-auto border-spacing-x-7.5 border-spacing-y-2 border-separate">
                 <thead>
                     <th></th>
                     <th><p>Daily</p></th>
@@ -76,7 +113,7 @@ function Info(){
                     <td><p>{user.weekly.flawless_games}</p></td>
                     <td><p>{user.all_time.flawless_games}</p></td>
                 </tr>
-            </table>
+            </table> */}
         </div>
     )
 

@@ -9,7 +9,7 @@ function App() {
   const [isLoggedin, setLoggedIn] = useState<boolean>(false)
   
   return (
-    <main className="m-auto w-4/5">
+    <main className="m-auto">
       <NavigationMenu menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
         {menuSelection == 'Leaderboard' ? <Leaderboard /> : <Home />}
       </NavigationMenu>
