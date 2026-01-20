@@ -1,18 +1,31 @@
 import { useState } from 'react'
 import NavigationMenu from './pages/nav.tsx'
-import Home from './pages/home.tsx'
-import Leaderboard from './pages/leaderboard.tsx'
+import HomePage from './pages/home.tsx'
+import LeaderboardPage from './pages/leaderboard.tsx'
+import Game from './pages/game.tsx'
 import './App.css'
 
 function App() {
+  const [screen, setScreen] = useState<string>('Nav')
   const [menuSelection, setMenuSelection] = useState<string>('Home')
   const [isLoggedin, setLoggedIn] = useState<boolean>(false)
-  
+
+  let display
+  switch(screen){
+    case 'Nav':
+      display = (<NavigationMenu  menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
+        {menuSelection == 'Leaderboard' ? <LeaderboardPage /> : <HomePage setScreen={setScreen} />}
+        </NavigationMenu>)
+      break
+
+    case 'Game':
+      display = (<Game />)
+      break
+  }
+
   return (
     <main className="m-auto">
-      <NavigationMenu menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
-        {menuSelection == 'Leaderboard' ? <Leaderboard /> : <Home />}
-      </NavigationMenu>
+      {display}
     </main>
   )
 }
