@@ -4,17 +4,18 @@ export default function FillInTheBlanks(){
     const wordToBlank: Function = (word: string): string => {
         return word.replace(/[a-zA-Z]/g, "_")
     }
+    
     const blankedWord = wordToBlank(word)
     const sections:string[] = blankedWord.split(' ')
 
-    const sectionToHTML: Function = (section: string) => {
+    const sectionToHTML: Function = (section: string, key: number) => {
         const letters: string[] = section.split('')
         return(
-            <div className="flex mx-4 gap-1 w-min">
+            <div key={key} className="flex mx-4 gap-1 w-min">
                 {letters.map((letter: string, index: number): any => {
                     const ret: any = letter == "_" ? <Blank /> : <p>{letter}</p>
                     return(
-                        <div key={letter+index}>
+                        <div key={index}>
                             {ret}
                         </div>
                     )
@@ -23,13 +24,17 @@ export default function FillInTheBlanks(){
         )
     }
 
+    const sectionsToHTML: Function = (sections: string[]) => {
+        return(
+            <div className="my-3 flex flex-wrap justify-center">
+                {sections.map((section, key) => sectionToHTML(section, key))}
+            </div>
+        )
+    }
+
     return(
         <div className="border-2">
-            <div className="my-3 flex flex-wrap justify-center">
-                {sectionToHTML(sections[0])}
-                {sectionToHTML(sections[1])}
-                {sectionToHTML(sections[2])}
-            </div>
+            {sectionsToHTML(sections)}
         </div>
     )
 }
