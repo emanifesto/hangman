@@ -1,12 +1,5 @@
-const word: string = "Agent00's Best Stream"
-
-export default function FillInTheBlanks(){
-    const wordToBlank: Function = (word: string): string => {
-        return word.replace(/[a-zA-Z]/g, "_")
-    }
-    
-    const blankedWord = wordToBlank(word)
-    const sections:string[] = blankedWord.split(' ')
+export default function FillInTheBlanks({ word }: {word: string}){
+    const sections:string[] = word.split(' ')
 
     const sectionToHTML: Function = (section: string, key: number) => {
         const letters: string[] = section.split('')
