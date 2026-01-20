@@ -1,3 +1,4 @@
+import { useEffect, type KeyboardEventHandler } from 'react'
 import FillInTheBlanks from "../components/game/blanks.tsx"
 
 export default function Game(){
@@ -7,11 +8,23 @@ export default function Game(){
     }
     const blankedWord = wordToBlank(word)
 
+    useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+        document.removeEventListener('keydown', handleKeyDown)
+    }
+
+    }, [])
+
+    const handleKeyDown = (event:KeyboardEvent): void => {
+        console.log(event.code)
+    }
+
     return(
         <div className="border-6">
             <p className="text-black text-5xl">This is not a drill!!</p>
 
-            <FillInTheBlanks word={word}/>
+            <FillInTheBlanks word={blankedWord}/>
         </div>
     )
 }
