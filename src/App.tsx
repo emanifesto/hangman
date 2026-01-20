@@ -6,13 +6,13 @@ import Game from './pages/game.tsx'
 import './App.css'
 
 function App() {
-  const [screen, setScreen] = useState<string>('Nav')
+  const [screen, setScreen] = useState<string>('Menu')
   const [menuSelection, setMenuSelection] = useState<string>('Home')
   const [isLoggedin, setLoggedIn] = useState<boolean>(false)
 
   let display
   switch(screen){
-    case 'Nav':
+    case 'Menu':
       display = (<NavigationMenu  menuSelection={menuSelection} setMenuSelection={setMenuSelection}>
         {menuSelection == 'Leaderboard' ? <LeaderboardPage /> : <HomePage setScreen={setScreen} />}
         </NavigationMenu>)
