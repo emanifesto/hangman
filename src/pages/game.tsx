@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import FillInTheBlanks from "../components/game/blanks.tsx"
+import Keyboard from '../components/game/keyboard.tsx'
 
 const word: string = "Agent00's Best Stream".toUpperCase()
 const hideWord: Function = (word: string): string => {
@@ -67,6 +68,7 @@ export default function Game(){
             <p className="text-black text-5xl">This is not a drill!!</p>
 
             <FillInTheBlanks words={hiddenWord}/>
+            <Keyboard />
         </div>
     )
 }
