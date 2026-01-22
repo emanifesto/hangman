@@ -16,59 +16,75 @@ const findGuessIndexes: Function = (guess: string): number[] => {
     return indexes
 }
 
-const evaluateGuess: Function = (guess: string, hiddenWord: string): string => {
+const evaluateGuess: Function = (guess: string, hiddenWords: string): string => {
     if (word.includes(guess)){
-        const hiddenWordArray: string[] = hiddenWord.split('')
+        const hiddenWordsArray: string[] = hiddenWords.split('')
         const replacementIndexes: number[] = findGuessIndexes(guess)
         for (const index of replacementIndexes){
-            hiddenWordArray[index] = guess
+            hiddenWordsArray[index] = guess
         }
-        return hiddenWordArray.join('')
+        return hiddenWordsArray.join('')
     }
-    return hiddenWord
+    return hiddenWords
 }
 
 export default function Game(){
-    const [guess, setGuess] = useState<string>('')
-    const [hiddenWord, sethiddenWord] = useState<string>(hideWord(word))
+    // const [guess, setGuess] = useState<string>('')
+    const [hiddenWords, setHiddenWords] = useState<string>(hideWord(word))
     
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [guess])
+    }, [hiddenWords])
 
-    const handleKeyDown = (event:KeyboardEvent): void => {
-        const keyPressed: string = event.code
+    const handleKeyDown = (key: KeyboardEvent | string): void => {
+        let keyPressed: string
+
+        if (key instanceof KeyboardEvent){
+            keyPressed = key.code
+        }else{
+            keyPressed = key 
+        }
 
         if (keyPressed.startsWith('Key')){
             const letter: string = keyPressed[3]
-            setGuess((prev) => prev.concat(letter.toUpperCase()))
-        }
-        
-        if (keyPressed == "Space"){
-            setGuess((prev) => prev.concat(' '))
-        }
+            const newHiddenWords: string = evaluateGuess(letter, hiddenWords)
+            if (hiddenWords == newHiddenWords){
 
-        if (keyPressed == "Enter"){
-            const newhiddenWord: string = evaluateGuess(guess, hiddenWord)
-
-            if (hiddenWord == newhiddenWord){
-
-            } else {
-                sethiddenWord(newhiddenWord)
+            }else{
+                setHiddenWords(newHiddenWords)
             }
-            setGuess('')
+            // setGuess((prev) => prev.concat(letter.toUpperCase()))
         }
+
+        // if (keyPressed == "Backspace"){
+        //     setGuess((prev) => prev.slice(0, prev.length - 1))
+        // }
+        
+        // if (keyPressed == "Space"){
+        //     setGuess((prev) => prev.concat(' '))
+        // }
+
+        // if (keyPressed == "Enter"){
+        //     const newHiddenWord: string = evaluateGuess(guess, hiddenWord)
+
+        //     if (hiddenWord == newHiddenWord){
+
+        //     } else {
+        //         setHiddenWord(newHiddenWord)
+        //     }
+        //     setGuess('')
+        // }
     }
 
     return(
         <div className="border-6">
             <p className="text-black text-5xl">This is not a drill!!</p>
 
-            <FillInTheBlanks words={hiddenWord}/>
-            <Keyboard />
+            <FillInTheBlanks words={hiddenWords} />
+            <Keyboard keyClick={handleKeyDown} />
         </div>
     )
 }
