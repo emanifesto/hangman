@@ -32,15 +32,15 @@ export default function Game(){
     const [hiddenWord, sethiddenWord] = useState<string>(hideWord(word))
     
     useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-        document.removeEventListener('keydown', handleKeyDown)
-    }
-
+        document.addEventListener('keydown', handleKeyDown)
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown)
+        }
     }, [guess])
 
     const handleKeyDown = (event:KeyboardEvent): void => {
         const keyPressed: string = event.code
+
         if (keyPressed.startsWith('Key')){
             const letter: string = keyPressed[3]
             setGuess((prev) => prev.concat(letter.toUpperCase()))
@@ -58,7 +58,6 @@ export default function Game(){
             } else {
                 sethiddenWord(newhiddenWord)
             }
-
             setGuess('')
         }
     }
@@ -67,7 +66,7 @@ export default function Game(){
         <div className="border-6">
             <p className="text-black text-5xl">This is not a drill!!</p>
 
-            <FillInTheBlanks word={hiddenWord}/>
+            <FillInTheBlanks words={hiddenWord}/>
         </div>
     )
 }
