@@ -1,8 +1,8 @@
-export default function FillInTheBlanks({ word }: {word: string}){
-    const sections:string[] = word.split(' ')
+export default function FillInTheBlanks({ words }: {words: string}){
+    const wordArray:string[] = words.split(' ')
 
-    const sectionToHTML: Function = (section: string, key: number) => {
-        const letters: string[] = section.split('')
+    const wordToJSX: Function = (word: string, key: number) => {
+        const letters: string[] = word.split('')
         return(
             <div key={key} className="flex mx-4 gap-1 w-min">
                 {letters.map((letter: string, index: number): any => {
@@ -17,17 +17,17 @@ export default function FillInTheBlanks({ word }: {word: string}){
         )
     }
 
-    const sectionsToHTML: Function = (sections: string[]) => {
+    const wordsToJSX: Function = (wordArray: string[]) => {
         return(
             <div className="my-3 flex flex-wrap justify-center">
-                {sections.map((section, key) => sectionToHTML(section, key))}
+                {wordArray.map((word, key) => wordToJSX(word, key))}
             </div>
         )
     }
 
     return(
         <div className="border-2">
-            {sectionsToHTML(sections)}
+            {wordsToJSX(wordArray)}
         </div>
     )
 }

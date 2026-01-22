@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import FillInTheBlanks from "../components/game/blanks.tsx"
 
 const word: string = "Agent00's Best Stream".toUpperCase()
-const wordToBlank: Function = (word: string): string => {
+const hideWord: Function = (word: string): string => {
     return word.replace(/[a-zA-Z]/g, "_")
 }
 
@@ -15,22 +15,21 @@ const findGuessIndexes: Function = (guess: string): number[] => {
     return indexes
 }
 
-const evaluateGuess: Function = (guess: string, blankedWord: string): string => {
+const evaluateGuess: Function = (guess: string, hiddenWord: string): string => {
     if (word.includes(guess)){
-        const blankedWordArray: string[] = blankedWord.split('')
+        const hiddenWordArray: string[] = hiddenWord.split('')
         const replacementIndexes: number[] = findGuessIndexes(guess)
         for (const index of replacementIndexes){
-            blankedWordArray[index] = guess
+            hiddenWordArray[index] = guess
         }
-        return blankedWordArray.join('')
+        return hiddenWordArray.join('')
     }
-    return blankedWord
+    return hiddenWord
 }
 
 export default function Game(){
     const [guess, setGuess] = useState<string>('')
-    const [blankedWord, setBlankedWord] = useState<string>(wordToBlank(word))
-    console.log(guess)
+    const [hiddenWord, sethiddenWord] = useState<string>(hideWord(word))
     
     useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
@@ -52,12 +51,12 @@ export default function Game(){
         }
 
         if (keyPressed == "Enter"){
-            const newBlankedWord: string = evaluateGuess(guess, blankedWord)
+            const newhiddenWord: string = evaluateGuess(guess, hiddenWord)
 
-            if (blankedWord == newBlankedWord){
-                console.log(blankedWord)
+            if (hiddenWord == newhiddenWord){
+
             } else {
-                setBlankedWord(newBlankedWord)
+                sethiddenWord(newhiddenWord)
             }
 
             setGuess('')
@@ -68,7 +67,7 @@ export default function Game(){
         <div className="border-6">
             <p className="text-black text-5xl">This is not a drill!!</p>
 
-            <FillInTheBlanks word={blankedWord}/>
+            <FillInTheBlanks word={hiddenWord}/>
         </div>
     )
 }
