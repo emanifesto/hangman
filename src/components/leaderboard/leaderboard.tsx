@@ -1,3 +1,5 @@
+import { type JSX } from 'react'
+
 const players: Array<[string, number]>= [['Jeremy', 40], ['Sarah', 39], ['Phil', 36],
 ['John', 32], ['Ant', 28], ['Sheyla', 10] ]
 
@@ -22,7 +24,7 @@ function Filter(){
 }
 
 function Entries( {entries}: {entries: Array<[string, number]>}){
-    const main: any = <ol>{entries.map(person => {
+    const main: JSX.Element = <ol>{entries.map(person => {
         return(
             <li key={person[0]}><Entry name={person[0]} score={person[1]}/></li>
         )

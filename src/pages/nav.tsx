@@ -1,4 +1,6 @@
-export default function NavigationMenu( {menuSelection, setMenuSelection, children}: {menuSelection: string, setMenuSelection: Function, children: any}){
+import { type JSX } from 'react'
+
+export default function NavigationMenu( {menuSelection, setMenuSelection, children}: {menuSelection: string, setMenuSelection: Function, children: JSX.Element}){
     const menuClickHandler: Function = (value: string) => {setMenuSelection(value)}
     
     return (

@@ -1,3 +1,5 @@
+import { type JSX } from "react"
+
 export default function FillInTheBlanks({ words }: {words: string}){
     const wordArray:string[] = words.split(' ')
 
@@ -5,11 +7,11 @@ export default function FillInTheBlanks({ words }: {words: string}){
         const letters: string[] = word.split('')
         return(
             <div key={key} className="flex mx-4 gap-1 w-min">
-                {letters.map((letter: string, index: number): any => {
-                    const ret: any = letter == "_" ? <Blank /> : <p>{letter}</p>
+                {letters.map((letter: string, index: number): JSX.Element => {
+                    const renderedLetter: JSX.Element = letter == "_" ? <Blank /> : <p>{letter}</p>
                     return(
                         <div key={index}>
-                            {ret}
+                            {renderedLetter}
                         </div>
                     )
                 })}
