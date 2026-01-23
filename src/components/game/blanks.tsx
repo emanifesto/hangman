@@ -6,9 +6,9 @@ export default function FillInTheBlanks({ words }: {words: string}){
     const wordToJSX: Function = (word: string, key: number) => {
         const letters: string[] = word.split('')
         return(
-            <div key={key} className="flex mx-4 gap-1 w-min">
+            <div key={key} className="flex mt-2 mx-4 gap-2 w-min">
                 {letters.map((letter: string, index: number): JSX.Element => {
-                    const renderedLetter: JSX.Element = letter == "_" ? <Blank /> : <p>{letter}</p>
+                    const renderedLetter: JSX.Element = letter == "_" ? <Blank /> : <p className="text-2xl">{letter}</p>
                     return(
                         <div key={index}>
                             {renderedLetter}
@@ -36,7 +36,7 @@ export default function FillInTheBlanks({ words }: {words: string}){
 
 function Blank(){
     return(
-        <p className="border-b-2 w-4 mt-[1lh]">
+        <p className="border-b-2 w-6 mt-8">
         </p>
     )
 }
