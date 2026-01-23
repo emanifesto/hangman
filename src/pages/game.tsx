@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import FillInTheBlanks from "../components/game/blanks.tsx"
+import Category from '../components/game/category.tsx'
 import Keyboard from '../components/game/keyboard.tsx'
 
 const word: string = "Agent00's Best Stream".toUpperCase()
@@ -82,6 +83,7 @@ export default function Game(){
     return(
         <div className="border-6">
             <FillInTheBlanks words={hiddenWords} />
+            <Category />
             <Keyboard keyClick={handleKeyDown} />
         </div>
     )
