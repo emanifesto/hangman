@@ -1,8 +1,6 @@
 import { type JSX } from 'react'
 
 export default function Lives(){
-    const alive: string = " bg-green-500 "
-    const dead: string = " bg-red-500 "
 
     return(
         <BodyPartBox 
@@ -11,14 +9,19 @@ export default function Lives(){
                     <circle radius="10" cx="10" cy="10" fill="black"/>
                 </svg>
             }
-            status={alive}/>
+            status="alive"/>
     )
 }
 
 function BodyPartBox({ bodyPart, status }: {bodyPart: JSX.Element, status: string}){
+    const bgcolor = {
+        alive: " bg-green-500 ",
+        dead: " bg-red-500 "
+    }[status]
+
     return(
         <div className="p-2.5 bg-black w-min">
-            <div className={status + "p-5 w-min rounded-lg"}>
+            <div className={bgcolor + "p-5 w-min rounded-lg"}>
                 {bodyPart}
             </div>
         </div>

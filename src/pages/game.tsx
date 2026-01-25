@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Timer from '../components/game/timer.tsx'
 import FillInTheBlanks from "../components/game/blanks.tsx"
 import Category from '../components/game/category.tsx'
 import Lives from '../components/game/lives.tsx'
@@ -33,7 +34,22 @@ const evaluateGuess: Function = (guess: string, hiddenWords: string): string => 
 export default function Game(){
     // const [guess, setGuess] = useState<string>('')
     const [hiddenWords, setHiddenWords] = useState<string>(hideWord(word))
-    
+    const [timeLeft, setTimeLeft] = useState<number>(45)
+
+    useEffect(() => {
+        const timerInterval: number = setInterval(() => {
+            setTimeLeft(prev => prev - 1)
+        }, 1000)
+
+        if (timeLeft < 1){
+            clearInterval(timerInterval)
+        }
+
+        return () => {
+            clearInterval(timerInterval)
+            }
+    }, [timeLeft])
+
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown)
         return () => {
@@ -83,6 +99,7 @@ export default function Game(){
 
     return(
         <div className="border-6">
+            <Timer timeLeft={timeLeft}/>
             <FillInTheBlanks words={hiddenWords} />
             <Category />
             <Lives />
