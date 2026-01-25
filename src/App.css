@@ -5,4 +5,19 @@
   text-align: center;
 }
 
+
+
 @import "tailwindcss";
+
+@theme {
+  --animate-hourglass: hourglass 45s linear;
+
+  @keyframes hourglass{
+    0%{
+      width: 100%
+    }
+    100%{
+      width: 0%
+    }
+  }
+}
