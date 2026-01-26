@@ -9,17 +9,15 @@
 
 @theme {
   --animate-hourglass: hourglass 45s linear;
-  --animate-pulsate: pulsate 2s linear infinite;  
+  --animate-pulsate: pulsate 2s linear infinite;
+  --animate-flash: flash 3s linear infinite;
 
   @keyframes hourglass{
     0%{
       width: 100%
     }
-    99%{
-      width: 0%
-    }
     100%{
-      left: -10%
+      width: 0%
     }
   }
 
@@ -29,6 +27,15 @@
     }
     100%{
       left: 100vw
+    }
+  }
+
+  @keyframes flash{
+    0%, 100%{
+      filter: blur(6px)
+    }
+    50%{
+      filter: blur(12px)
     }
   }
 }
