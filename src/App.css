@@ -5,19 +5,30 @@
   text-align: center;
 }
 
-
-
 @import "tailwindcss";
 
 @theme {
   --animate-hourglass: hourglass 45s linear;
+  --animate-pulsate: pulsate 2s linear infinite;  
 
   @keyframes hourglass{
     0%{
       width: 100%
     }
-    100%{
+    99%{
       width: 0%
+    }
+    100%{
+      left: -10%
+    }
+  }
+
+  @keyframes pulsate{
+    0%{
+      left: 0vw;
+    }
+    100%{
+      left: 100vw
     }
   }
 }
