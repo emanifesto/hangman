@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type JSX } from 'react'
 import Timer from '../components/game/timer.tsx'
 import FillInTheBlanks from "../components/game/blanks.tsx"
 import Category from '../components/game/category.tsx'
@@ -59,9 +59,13 @@ export default function Game(){
 
     const handleKeyDown = (key: KeyboardEvent | string): void => {
         let keyPressed: string
+        console.log(key)
 
         if (key instanceof KeyboardEvent){
             keyPressed = key.code
+            const visualKey: HTMLElement|null = document.getElementById(keyPressed)
+            if (visualKey?.getAnimations().length == 0)
+                visualKey?.animate([{transform: "translateX(2px) translateY(2px)"}], {duration: 300, easing: "ease-out"})
         }else{
             keyPressed = key 
         }
