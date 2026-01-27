@@ -6,8 +6,6 @@ export default function Keyboard({ keyClick }: {keyClick: Function}){
             <KeyboardRow letters="QWERTYUIOP" keyClick={keyClick} />
             <KeyboardRow letters="ASDFGHJKL" keyClick={keyClick} />
             <KeyboardRow letters="ZXCVBNM" keyClick={keyClick} />
-            {/* putting this on the backburner till I want to incorporate guessing the full word
-             <ImportantKeys keyClick={keyClick} /> */}
         </div>
     )
 }
@@ -38,13 +36,3 @@ function Key( {text, keyClick}:{text: string, keyClick: Function}){
         </div>
     )
 }
-
-// function ImportantKeys({ keyClick }: {keyClick: Function}){
-//     return(
-//         <div className="flex mx-auto w-[70%] gap-3 mt-4 text-white">
-//             <Key text="Backspace" keyClick={keyClick} styling="basis-1/4 bg-orange-600/70 p-3 rounded-lg font-bold" />
-//             <Key text="Space" keyClick={keyClick} styling="basis-1/2 p-3 bg-gray-600 rounded-lg font-bold" />
-//             <Key text="Enter" keyClick={keyClick} styling="basis-1/4 bg-blue-600/90 p-3 rounded-lg font-bold" />
-//         </div>
-//     )
-// }

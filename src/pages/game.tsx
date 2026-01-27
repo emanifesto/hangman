@@ -78,27 +78,7 @@ export default function Game(){
             }else{
                 setHiddenWords(newHiddenWords)
             }
-            // setGuess((prev) => prev.concat(letter.toUpperCase()))
         }
-
-        // if (keyPressed == "Backspace"){
-        //     setGuess((prev) => prev.slice(0, prev.length - 1))
-        // }
-        
-        // if (keyPressed == "Space"){
-        //     setGuess((prev) => prev.concat(' '))
-        // }
-
-        // if (keyPressed == "Enter"){
-        //     const newHiddenWord: string = evaluateGuess(guess, hiddenWord)
-
-        //     if (hiddenWord == newHiddenWord){
-
-        //     } else {
-        //         setHiddenWord(newHiddenWord)
-        //     }
-        //     setGuess('')
-        // }
     }
 
     return(
