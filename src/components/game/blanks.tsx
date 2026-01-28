@@ -2,6 +2,7 @@ import { type JSX } from "react"
 
 export default function FillInTheBlanks({ words }: {words: string}){
     const wordArray:string[] = words.split(' ')
+    
 
     const wordToJSX: Function = (word: string, key: number) => {
         const letters: string[] = word.split('')
@@ -28,7 +29,7 @@ export default function FillInTheBlanks({ words }: {words: string}){
     }
 
     return(
-        <div className="bg-[#cad9fa] py-1 rounded-md w-[90%]">
+        <div className="bg-[#cad9fa] py-1 rounded-md w-[90%] col-span-7 row-span-4">
             {wordsToJSX(wordArray)}
         </div>
     )
@@ -36,7 +37,7 @@ export default function FillInTheBlanks({ words }: {words: string}){
 
 function Blank(){
     return(
-        <p className="border-b-2 w-6 mt-8">
+        <p className="border-b-2 w-3 mt-8">
         </p>
     )
 }

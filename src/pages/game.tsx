@@ -33,7 +33,6 @@ const evaluateGuess: Function = (guess: string, hiddenWords: string): string => 
 }
 
 export default function Game(){
-    // const [guess, setGuess] = useState<string>('')
     const [hiddenWords, setHiddenWords] = useState<string>(hideWord(word))
     const [timeLeft, setTimeLeft] = useState<number>(45)
 
@@ -82,13 +81,13 @@ export default function Game(){
     }
 
     return(
-        <div className="flex flex-wrap grid-cols-auto justify-around gap-y-3 grid-rows-auto pb-3 bg-[#79abf2] shadow-2xl">
+        <div className="flex flex-wrap lg:grid grid-cols-auto justify-around gap-y-3 grid-rows-10 h-[95vh]  bg-[#79abf2] shadow-2xl">
             <Timer timeLeft={timeLeft}/>
             <FillInTheBlanks words={hiddenWords} />
             <Category />
             <Lives />
             <Keyboard keyPress={handleKeyDown} />
-            <MobileInputField keyPress={handleKeyDown}/>
+            {window.innerWidth < 1024 && <MobileInputField keyPress={handleKeyDown}/>}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 export default function Timer({timeLeft}: {timeLeft: number}){
     return(
-        <div className="place-items-end pr-1 py-1 relative z-0 overflow-hidden rounded-sm w-full  shadow-xs">
+        <div className="place-items-end pr-1 py-1 relative z-0 overflow-hidden rounded-sm w-full col-span-12 row-span-1 shadow-xs">
             <p className="w-12 p-3 rounded-[50%] bg-black/40 font-bold">
                 {timeLeft}
             </p>
