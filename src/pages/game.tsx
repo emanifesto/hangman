@@ -59,7 +59,6 @@ export default function Game(){
 
     const handleKeyDown = (key: KeyboardEvent | string): void => {
         let keyPressed: string
-        console.log(key)
 
         if (key instanceof KeyboardEvent){
             keyPressed = key.code
@@ -69,7 +68,7 @@ export default function Game(){
         }else{
             keyPressed = key 
         }
-
+        
         if (keyPressed.startsWith('Key')){
             const letter: string = keyPressed[3]
             const newHiddenWords: string = evaluateGuess(letter, hiddenWords)

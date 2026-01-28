@@ -28,7 +28,7 @@ export default function FillInTheBlanks({ words }: {words: string}){
     }
 
     return(
-        <div className="border-2">
+        <div className="bg-[#cad9fa] py-1 rounded-md w-[90%]">
             {wordsToJSX(wordArray)}
         </div>
     )

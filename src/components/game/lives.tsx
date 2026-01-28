@@ -19,9 +19,9 @@ function BodyPartBox({ bodyPart, status }: {bodyPart: JSX.Element, status: strin
         dead: " bg-red-500 "
     }[status]
 
-    return(
-        <div className="p-2.5 bg-black w-min">
-            <div className={`${bgcolor} p-5 w-min rounded-lg`}>
+    return( 
+        <div className="p-1.5 bg-black w-min">
+            <div className={`${bgcolor} p-4 w-min rounded-xl`}>
                 {bodyPart}
             </div>
         </div>
