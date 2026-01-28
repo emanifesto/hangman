@@ -1,9 +1,10 @@
-import { useEffect, useState, type JSX } from 'react'
+import { useEffect, useState } from 'react'
 import Timer from '../components/game/timer.tsx'
 import FillInTheBlanks from "../components/game/blanks.tsx"
 import Category from '../components/game/category.tsx'
 import Lives from '../components/game/lives.tsx'
 import Keyboard from '../components/game/keyboard.tsx'
+import MobileInputField from '../components/game/input.tsx'
 
 const word: string = "Agent00's Best Stream".toUpperCase()
 const hideWord: Function = (word: string): string => {
@@ -81,12 +82,13 @@ export default function Game(){
     }
 
     return(
-        <div className="border-6">
+        <div className="flex flex-wrap grid-cols-auto justify-around gap-y-3 grid-rows-auto pb-3 bg-[#79abf2] shadow-2xl">
             <Timer timeLeft={timeLeft}/>
             <FillInTheBlanks words={hiddenWords} />
             <Category />
             <Lives />
-            <Keyboard keyClick={handleKeyDown} />
+            <Keyboard keyPress={handleKeyDown} />
+            <MobileInputField keyPress={handleKeyDown}/>
         </div>
     )
 }
