@@ -2,7 +2,7 @@ import { type JSX } from "react"
 
 export default function Keyboard({ keyPress }: {keyPress: Function}){
     return(
-        <div className="bg-[#cad9fa] p-5 rounded-xl content-center hidden col-span-8 row-span-3 lg:block">
+        <div className="bg-[#cad9fa] p-5 rounded-xl content-center hidden col-span-8 row-span-4 lg:block">
             <KeyboardRow letters="QWERTYUIOP" keyPress={keyPress} />
             <KeyboardRow letters="ASDFGHJKL" keyPress={keyPress} />
             <KeyboardRow letters="ZXCVBNM" keyPress={keyPress} />
