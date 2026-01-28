@@ -3,13 +3,49 @@ import { type JSX } from 'react'
 export default function Lives(){
 
     return(
-        <BodyPartBox 
-            bodyPart={
-                <svg viewBox="0 0 20 20" className="size-5 fill-black">
-                    <circle radius="10" cx="10" cy="10" fill="black"/>
-                </svg>
-            }
-            status="alive"/>
+        <div className='bg-[#cad9fa] p-4  place-items-center rounded-xl'>
+            <BodyPartBox 
+                bodyPart={
+                    <div className='w-4 h-4 bg-red-400 rounded-[50%]'></div>
+                }
+                status="alive"/>
+            <div className='flex'>
+                <BodyPartBox 
+                    bodyPart={
+                        <div className='w-2 h-6 bg-red-400'></div>
+                    }
+                    status="alive"/>
+                <BodyPartBox 
+                    bodyPart={
+                        <div className='w-4 h-6 bg-red-400'></div>
+                    }
+                    status="alive"/>
+                <BodyPartBox 
+                    bodyPart={
+                        <div className='w-2 h-6 bg-red-400'></div>
+                    }
+                    status="alive"/>
+            </div>
+            
+            <BodyPartBox 
+                bodyPart={
+                    <div className='w-4 h-2 bg-red-400'></div>
+                }
+                status="alive"/>
+            <div className='flex'>
+                <BodyPartBox 
+                    bodyPart={
+                        <div className='w-2 h-6 bg-red-400'></div>
+                    }
+                    status="alive"/>
+                <BodyPartBox 
+                    bodyPart={
+                        <div className='w-2 h-6 bg-red-400'></div>
+                    }
+                    status="alive"/>
+            </div>
+            
+        </div>
     )
 }
 
