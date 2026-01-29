@@ -3,7 +3,7 @@ import { type JSX } from 'react'
 export default function Lives(){
 
     return(
-        <div className='bg-[#cad9fa] p-4 basis-1/2 place-items-center rounded-xl col-span-3 row-span-5 col-start-1'>
+        <div className='bg-[#cad9fa] inset-shadow-sm inset-shadow-[#5078b4] p-4 basis-1/2 content-center place-items-center rounded-xl col-span-3 row-span-5 col-start-1'>
             <BodyPartBox 
                 bodyPart={
                     <div className='w-4 h-4 bg-red-400 rounded-[50%]'></div>
