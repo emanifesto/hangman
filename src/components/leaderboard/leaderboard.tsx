@@ -1,11 +1,12 @@
 import { type JSX } from 'react'
+import LoginBanner from './banner'
 
 const players: Array<[string, number]>= [['Jeremy', 40], ['Sarah', 39], ['Phil', 36],
 ['John', 32], ['Ant', 28], ['Sheyla', 10] ]
 
 export default function Leaderboard(){
     return(
-        <div className="border-black/50 border-4 mt-3 rounded-xl bg-purple-700 text-white">
+        <div className="border-black/50 border-4 mt-3 max-w-220 mx-auto rounded-xl bg-purple-700 text-white">
             <Filter />
             <Entries entries={players} />
             <Navigation />
@@ -32,6 +33,7 @@ function Entries( {entries}: {entries: Array<[string, number]>}){
 
     return(
         <div className="h-[35vh] overflow-auto">
+            <LoginBanner />
             {main}
         </div>
     )

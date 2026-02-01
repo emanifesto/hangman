@@ -31,13 +31,13 @@ function User(){
 
 function Info(){
     return (
-        <div className="flex px-5 justify-between">
-            <div className="font-extrabold mt-6">
+        <div className="flex justify-evenly py-2">
+            <div className="font-extrabold mt-6 text-left">
                 <p>Games (W/L/Total)</p>
                 <p>Score</p>
                 <p>Speed</p>
                 <p>Accuracy</p>
-                <p>Predictions</p>
+                {/* <p>Predictions</p> */}
                 <p>Flawless Games</p>
             </div>
             <div className="flex w-[35%] overflow-x-auto snap-x snap-mandatory">
@@ -47,7 +47,7 @@ function Info(){
                     <p>{user.daily.score}</p>
                     <p>{user.daily.speed}</p>
                     <p>{user.daily.accuracy}</p>
-                    <p>{user.daily.predictions}</p>
+                    {/* <p>{user.daily.predictions}</p> */}
                     <p>{user.daily.flawless_games}</p>
                 </div>
                 <div className="shrink-0 basis-1/1 snap-center">
@@ -56,7 +56,7 @@ function Info(){
                     <p>{user.weekly.score}</p>
                     <p>{user.weekly.speed}</p>
                     <p>{user.weekly.accuracy}</p>
-                    <p>{user.weekly.predictions}</p>
+                    {/* <p>{user.weekly.predictions}</p> */}
                     <p>{user.weekly.flawless_games}</p>
                 </div>
                 <div className="shrink-0 basis-1/1 snap-center">
@@ -65,7 +65,7 @@ function Info(){
                     <p>{user.all_time.score}</p>
                     <p>{user.all_time.speed}</p>
                     <p>{user.all_time.accuracy}</p>
-                    <p>{user.all_time.predictions}</p>
+                    {/* <p>{user.all_time.predictions}</p> */}
                     <p>{user.all_time.flawless_games}</p>
                 </div>
             </div>

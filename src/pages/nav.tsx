@@ -4,15 +4,15 @@ export default function NavigationMenu( {menuSelection, setMenuSelection, childr
     const menuClickHandler: Function = (value: string) => {setMenuSelection(value)}
     
     return (
-        <>
-            <div className="py-1  bg-blue-300 place-items-center border-b-6 rounded-xl border-black/40">
-                <div className="flex">
-                    <HomeButton item={menuSelection} menuClick={menuClickHandler}/>
-                    <LeaderboardButton item={menuSelection} menuClick={menuClickHandler}/>
+        <div className='w-[95%] h-[90vh] mx-auto pt-[5vh]'>
+            <div className='pt-4 mx-auto max-w-300 bg-white/15 backdrop-blur-xs border-s border-t border-white rounded-2xl'>
+                <div className="p-2 w-fit justify-self-center bg-blue-300 place-items-center border-b-6 rounded-xl border-black/40">
+                        <HomeButton item={menuSelection} menuClick={menuClickHandler}/>
+                        <LeaderboardButton item={menuSelection} menuClick={menuClickHandler}/>
                 </div>
+                {children}
             </div>
-            {children}
-        </>
+        </div>
     )
 }
 
@@ -33,5 +33,5 @@ function LeaderboardButton ( {item, menuClick}: {item: string, menuClick: Functi
     )
 }
 
-const selected: string = "text-2xl p-3 rounded-2xl bg-blue-400/70"
+const selected: string = "text-2xl p-3 rounded-2xl bg-blue-400"
 const unselected: string = "text-2xl p-3"

@@ -24,7 +24,7 @@ function App() {
   }
 
   return (
-    <main className="m-auto">
+    <main className="bg-[url(src/assets/main_background.svg)] h-screen">
       {display}
     </main>
   )

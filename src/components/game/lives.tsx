@@ -11,7 +11,7 @@ export default function Lives(){
                 <BodyPartBox status="alive">
                     <img src='src/assets/Left Arm.svg' alt='a svg of an arm' className='w-4.5 h-auto animate-pulse'/>
                 </BodyPartBox>
-                <BodyPartBox status="dead">
+                <BodyPartBox status="alive">
                     <img src='src/assets/Torso.svg' alt='a svg of a torso' className='w-10 h-auto animate-pulse'/>
                 </BodyPartBox>
                 <BodyPartBox status="alive">
