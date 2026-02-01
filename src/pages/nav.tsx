@@ -5,7 +5,7 @@ export default function NavigationMenu( {menuSelection, setMenuSelection, childr
     
     return (
         <div className='w-[95%] h-[90vh] mx-auto pt-[5vh]'>
-            <div className='pt-4 mx-auto max-w-300 bg-white/15 backdrop-blur-xs border-s border-t border-white rounded-2xl'>
+            <div className='pt-4 mx-auto max-w-300 bg-white/15 backdrop-blur-xs border border-white rounded-2xl'>
                 <div className="p-2 w-fit justify-self-center bg-blue-300 place-items-center border-b-6 rounded-xl border-black/40">
                         <HomeButton item={menuSelection} menuClick={menuClickHandler}/>
                         <LeaderboardButton item={menuSelection} menuClick={menuClickHandler}/>
