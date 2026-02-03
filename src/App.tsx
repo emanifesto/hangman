@@ -8,7 +8,7 @@ import './App.css'
 function App() {
   const [screen, setScreen] = useState<string>('Menu')
   const [menuSelection, setMenuSelection] = useState<string>('Home')
-  const [isLoggedin, setLoggedIn] = useState<boolean>(false)
+  // const [isLoggedin, setLoggedIn] = useState<boolean>(false)
 
   let display
   switch(screen){
