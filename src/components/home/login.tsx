@@ -57,10 +57,11 @@ function decodeJWT(token: any) {
 
 async function handleCredentialResponse(response: any) {
     const url: string = "https://hangman-26m.pages.dev/"
+    console.log(response)
 
     const responsePayload = decodeJWT(response.credential);
 
-    const request: Response = await fetch(`${url}user-login`, {
+    const requestResponse: Response = await fetch(`${url}user-login`, {
         method: "POST",
         headers: {"content-type": 'application/json'},
         body: JSON.stringify({
@@ -70,6 +71,6 @@ async function handleCredentialResponse(response: any) {
         })
     })
 
-    console.log(request.ok)
-    console.log(request.text())
+    console.log(requestResponse.ok)
+    console.log(requestResponse.text)
 }
