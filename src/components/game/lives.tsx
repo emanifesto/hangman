@@ -1,32 +1,39 @@
 import { type JSX } from 'react'
+import Head from '../../assets/Head.svg'
+import Torso from '../../assets/Torso.svg'
+import LeftArm from '../../assets/Left Arm.svg'
+import RightArm from '../../assets/Right Arm.svg'
+import Waist from '../../assets/Waist.svg'
+import LeftLeg from '../../assets/Left Leg.svg'
+import RightLeg from '../../assets/Right Leg.svg'
 
 export default function Lives(){
 
     return(
-        <div className='bg-[#cad9fa] inset-shadow-sm inset-shadow-[#5078b4] p-4 basis-1/2 content-center place-items-center rounded-xl col-span-3 row-span-5 col-start-1'>
+        <div className='bg-[#cad9fa] inset-shadow-sm inset-shadow-[#5078b4] p-4 basis-1/2 content-center place-items-center rounded-xl col-span-3 row-span-5 col-start-1 overflow-y-hidden'>
             <BodyPartBox status="alive">
-                <img src='src/assets/Head.svg' alt='a svg of a head' className='w-6 h-auto animate-pulse'/>
+                <img src={Head} alt='a svg of a head' className='w-6 h-auto animate-pulse'/>
             </BodyPartBox>
             <div className='flex'>
                 <BodyPartBox status="alive">
-                    <img src='src/assets/Left Arm.svg' alt='a svg of an arm' className='w-4.5 h-auto animate-pulse'/>
+                    <img src={LeftArm} alt='a svg of an left arm' className='w-4.5 h-auto animate-pulse'/>
                 </BodyPartBox>
                 <BodyPartBox status="alive">
-                    <img src='src/assets/Torso.svg' alt='a svg of a torso' className='w-10 h-auto animate-pulse'/>
+                    <img src={Torso} alt='a svg of a torso' className='w-10 h-auto animate-pulse'/>
                 </BodyPartBox>
                 <BodyPartBox status="alive">
-                    <img src='src/assets/Right Arm.svg' alt='a svg of an arm' className='w-4.5 h-auto animate-pulse'/>
+                    <img src={RightArm} alt='a svg of an right arm' className='w-4.5 h-auto animate-pulse'/>
                 </BodyPartBox>
             </div>
             <BodyPartBox status="alive">
-                <img src='src/assets/Waist.svg' alt='a svg of a waist' className='w-10 h-auto animate-pulse'/>
+                <img src={Waist} alt='a svg of a waist' className='w-10 h-auto animate-pulse'/>
             </BodyPartBox>
             <div className='flex'>
                 <BodyPartBox status="alive">
-                    <img src='src/assets/Left Leg.svg' alt='a svg of a leg' className='w-4 h-auto animate-pulse'/>
+                    <img src={LeftLeg} alt='a svg of a left leg' className='w-4 h-auto animate-pulse'/>
                 </BodyPartBox>
                 <BodyPartBox status="alive">
-                    <img src='src/assets/Right Leg.svg' alt='a svg of a leg' className='w-4 h-auto animate-pulse'/>
+                    <img src={RightLeg} alt='a svg of a right leg' className='w-4 h-auto animate-pulse'/>
                 </BodyPartBox>
             </div>
             
