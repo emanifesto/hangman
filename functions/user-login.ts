@@ -13,6 +13,8 @@ export const onRequestPost = async (context: any) => {
     console.log(`AuthResponse: ${authResponse}`)
     console.log(`AuthPayload: ${authPayload}`)
     console.log(`AuthClientId: ${authClientId}`)
+
+    return new Response('Success', {status: 200})
 }
 
 
