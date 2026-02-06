@@ -6,14 +6,14 @@ export const onRequestPost = async (context: any) => {
 
     const authHeader = decodeJWTHeader(authBody.credential)
     const authPayload = decodeJWTPayload(authBody.credential)
-    const authSignature = decodeJWTSignature(authBody.credential)
+    // const authSignature = decodeJWTSignature(authBody.credential)
 
     console.log(headers)
     console.log(method)
     console.log(body)
     console.log(authHeader)
     console.log(authPayload)
-    console.log(authSignature)
+    // console.log(authSignature)
     return new Response('Success', {status: 200})
 }
 
