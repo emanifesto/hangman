@@ -1,20 +1,32 @@
 export const onRequestPost = async (context: any) => {
-    
+
     const headers = new Headers(context.request.headers)
-    const method = context.request.method
     const body = await context.request.json()
     const authResponse = body.response
 
     const authPayload = decodeJWTPayload(authResponse.credential)
     const authClientId = authResponse.clientId
 
-    console.log(headers.getSetCookie)
-    console.log(headers)
-    console.log(method)
-    console.log(body)
-    console.log(authPayload)
-    return new Response('Success', {status: 200})
+    const {OAuth2Client} = require('google-auth-library')
+    const client = new OAuth2Client
+    const ticket = await client.verifyIdToken({
+        idToken: authResponse,
+        audience: context.env.GOOGLE_OAUTH_CLIENT_ID
+    })
+    const payload = ticket.getPayload()
+    const userid = payload['sub']
+
+    console.log(`Body: ${body}`)
+    console.log(`AuthResponse: ${authResponse}`)
+    console.log(`Ticket: ${ticket}`)
+    console.log(`AuthPayload: ${authPayload}`)
+    console.log(`Payload: ${payload}`)
+    console.log(`AuthClientId: ${authClientId}`)
+    console.log(`UserId: ${userid}`)
+    
 }
+
+
 
 function decodeJWTPayload(token: any) {
 
