@@ -55,17 +55,22 @@ function decodeJWT(token: any) {
     return JSON.parse(jsonPayload);
     }
 
-function handleCredentialResponse(response: any) {
+async function handleCredentialResponse(response: any) {
+    const url: string = "http://localhost:5173/"
 
     console.log("Encoded JWT ID token: " + response.credential);
 
     const responsePayload = decodeJWT(response.credential);
 
-    console.log("Decoded JWT ID token fields:");
-    console.log("  Full Name: " + responsePayload.name);
-    console.log("  Given Name: " + responsePayload.given_name);
-    console.log("  Family Name: " + responsePayload.family_name);
-    console.log("  Unique ID: " + responsePayload.sub);
-    console.log("  Profile image URL: " + responsePayload.picture);
-    console.log("  Email: " + responsePayload.email);
+    const request: Response = await fetch(`${url}user-login`, {
+        method: "POST",
+        body: JSON.stringify({
+            full: `${response}`,
+            encoded: `${response.credential}`,
+            decoded: `${responsePayload}`,
+        })
+    })
+
+    console.log(request)
+    console.log(await request.json())
 }

@@ -4,7 +4,6 @@ import HomePage from './pages/home.tsx'
 import LeaderboardPage from './pages/leaderboard.tsx'
 import Game from './pages/game.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-// import Background from './assets/main_background.svg?raw'
 import './App.css'
 
 function App() {
