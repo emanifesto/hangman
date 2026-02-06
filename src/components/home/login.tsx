@@ -40,35 +40,16 @@ function LogoutButton( {handleSignOut}: {handleSignOut: MouseEventHandler}){
     )
 }
 
-function decodeJWT(token: any) {
-
-    let base64Url = token.split(".")[1];
-    let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    let jsonPayload = decodeURIComponent(
-        atob(base64)
-        .split("")
-        .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join("")
-    );
-    return JSON.parse(jsonPayload);
-    }
-
 async function handleCredentialResponse(response: any) {
-    const url: string = "https://hangman-26m.pages.dev/"  
+    const url: string = "https://hangman-26m.pages.dev/"
 
-    const responsePayload = decodeJWT(response.credential);
-
-    const requestResponse: Response = await fetch(`${url}user-login`, {
+    const serverLoginResponse: Response = await fetch(`${url}user-login`, {
         method: "POST",
         headers: {"content-type": 'application/json'},
         body: JSON.stringify({
-            full: response,
-            encoded: response.credential,
-            decoded: responsePayload,
+            response: response,
         })
     })
-    console.log(response)
-    console.log(requestResponse.ok)
+    
+    console.log(serverLoginResponse.ok)
 }
