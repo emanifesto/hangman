@@ -56,8 +56,7 @@ function decodeJWT(token: any) {
     }
 
 async function handleCredentialResponse(response: any) {
-    const url: string = "https://hangman-26m.pages.dev/"
-    console.log(response)
+    const url: string = "https://hangman-26m.pages.dev/"  
 
     const responsePayload = decodeJWT(response.credential);
 
@@ -65,12 +64,11 @@ async function handleCredentialResponse(response: any) {
         method: "POST",
         headers: {"content-type": 'application/json'},
         body: JSON.stringify({
-            full: `${response}`,
-            encoded: `${response.credential}`,
-            decoded: `${responsePayload}`,
+            full: response,
+            encoded: response.credential,
+            decoded: responsePayload,
         })
     })
-
+    console.log(response)
     console.log(requestResponse.ok)
-    console.log(requestResponse.text)
 }
