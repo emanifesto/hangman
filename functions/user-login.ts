@@ -1,5 +1,5 @@
 export const onRequestPost = async (context: any) => {
     console.log(context)
-    console.log(await JSON.parse(context.request))
+    console.log(await context.request.json())
     return new Response('Success', {status: 200})
 }
