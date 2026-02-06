@@ -4,6 +4,7 @@ import HomePage from './pages/home.tsx'
 import LeaderboardPage from './pages/leaderboard.tsx'
 import Game from './pages/game.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+// import Background from './assets/main_background.svg?raw'
 import './App.css'
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId="844094970191-7fceof5l4j4hngbopmdb1142t1eh0kot.apps.googleusercontent.com">
-    <main className="bg-[url(public/main_background.svg)] h-screen">
+    <main className="bg-[url('/main_background.svg')] h-screen">
       {display}
     </main>
     </GoogleOAuthProvider>
