@@ -1,7 +1,7 @@
 import {GoogleLogin, googleLogout} from "@react-oauth/google"
 import type { MouseEventHandler } from "react"
 
-export default function LoginButton( {isLoggedIn=false, setLoggedIn, design}: {isLoggedIn: boolean, setLoggedIn: Function, design: Object} ){
+export default function LoginButton( {isLoggedIn=false, setLoggedIn}: {isLoggedIn: boolean, setLoggedIn: Function} ){
     function handleSignOut(){
         setLoggedIn(false)
         googleLogout()

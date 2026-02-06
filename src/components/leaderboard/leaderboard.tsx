@@ -33,7 +33,7 @@ function Entries( {entries, isLoggedIn, setLoggedIn}: {entries: Array<[string, n
 
     return(
         <div className="h-[35vh] overflow-auto">
-            {!isLoggedIn && <LoginBanner setLoggedIn={setLoggedIn} />}
+            {!isLoggedIn && <LoginBanner isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />}
             {main}
         </div>
     )
