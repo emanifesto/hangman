@@ -64,6 +64,7 @@ async function handleCredentialResponse(response: any) {
 
     const request: Response = await fetch(`${url}user-login`, {
         method: "POST",
+        headers: {"content-type": 'application/json'},
         body: JSON.stringify({
             full: `${response}`,
             encoded: `${response.credential}`,
@@ -72,5 +73,5 @@ async function handleCredentialResponse(response: any) {
     })
 
     console.log(request)
-    console.log(await request.json())
+    console.log(request.body)
 }
