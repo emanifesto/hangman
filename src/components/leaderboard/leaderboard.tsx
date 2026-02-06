@@ -4,11 +4,11 @@ import LoginBanner from './banner'
 const players: Array<[string, number]>= [['Jeremy', 40], ['Sarah', 39], ['Phil', 36],
 ['John', 32], ['Ant', 28], ['Sheyla', 10] ]
 
-export default function Leaderboard(){
+export default function Leaderboard({ isLoggedIn, setLoggedIn }: {isLoggedIn: boolean, setLoggedIn: Function}){
     return(
         <div className="border-black/50 border-4 mt-3 max-w-220 mx-auto rounded-xl bg-purple-700 text-white">
             <Filter />
-            <Entries entries={players} />
+            <Entries isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} entries={players} />
             <Navigation />
         </div>
     )
@@ -24,7 +24,7 @@ function Filter(){
     )
 }
 
-function Entries( {entries}: {entries: Array<[string, number]>}){
+function Entries( {entries, isLoggedIn, setLoggedIn}: {entries: Array<[string, number]>, isLoggedIn: boolean, setLoggedIn: Function}){
     const main: JSX.Element = <ol>{entries.map(person => {
         return(
             <li key={person[0]}><Entry name={person[0]} score={person[1]}/></li>
@@ -33,7 +33,7 @@ function Entries( {entries}: {entries: Array<[string, number]>}){
 
     return(
         <div className="h-[35vh] overflow-auto">
-            <LoginBanner />
+            {!isLoggedIn && <LoginBanner setLoggedIn={setLoggedIn} />}
             {main}
         </div>
     )
