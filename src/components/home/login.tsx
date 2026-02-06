@@ -71,5 +71,5 @@ async function handleCredentialResponse(response: any) {
     })
 
     console.log(request.ok)
-    console.log(request.text)
+    console.log(request.text())
 }

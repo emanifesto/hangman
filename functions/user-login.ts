@@ -4,7 +4,7 @@ export const onRequestPost = async (context: any) => {
     console.log(await context.params)
     console.log(await context.data)
     console.log(await context.env.ASSETS)
-    console.log(JSON.stringify(request.full))
-    console.log(JSON.stringify(request.decoded))
+    console.log(...request.full)
+    console.log(...request.decoded)
     return new Response('Success', {status: 200})
 }
