@@ -56,7 +56,7 @@ function decodeJWT(token: any) {
     }
 
 async function handleCredentialResponse(response: any) {
-    const url: string = "http://localhost:5173/"
+    const url: string = "https://hangman-26m.pages.dev/"
 
     console.log("Encoded JWT ID token: " + response.credential);
 
