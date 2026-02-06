@@ -7,23 +7,12 @@ export const onRequestPost = async (context: any) => {
     const authPayload = decodeJWTPayload(authResponse.credential)
     const authClientId = authResponse.clientId
 
-    const {OAuth2Client} = require('google-auth-library')
-    const client = new OAuth2Client
-    const ticket = await client.verifyIdToken({
-        idToken: authResponse,
-        audience: context.env.GOOGLE_OAUTH_CLIENT_ID
-    })
-    const payload = ticket.getPayload()
-    const userid = payload['sub']
 
+    console.log(`Request: ${context.request}`)
     console.log(`Body: ${body}`)
     console.log(`AuthResponse: ${authResponse}`)
-    console.log(`Ticket: ${ticket}`)
     console.log(`AuthPayload: ${authPayload}`)
-    console.log(`Payload: ${payload}`)
     console.log(`AuthClientId: ${authClientId}`)
-    console.log(`UserId: ${userid}`)
-    
 }
 
 
