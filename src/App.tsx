@@ -30,7 +30,7 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId="844094970191-7fceof5l4j4hngbopmdb1142t1eh0kot.apps.googleusercontent.com">
-    <main className="bg-[url(src/assets/main_background.svg)] h-screen">
+    <main className="bg-[url(public/main_background.svg)] h-screen">
       {display}
     </main>
     </GoogleOAuthProvider>

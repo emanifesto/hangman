@@ -81,7 +81,7 @@ export default function Game(){
     }
 
     return(
-        <div className="flex flex-wrap lg:grid grid-cols-11 justify-around gap-3 grid-rows-10 lg:px-5 lg:pb-4 h-[95vh]  bg-[#79abf2] shadow-2xl">
+        <div className="flex flex-wrap lg:grid grid-cols-11 justify-around gap-3 grid-rows-10 lg:px-5 lg:pb-4 h-[95vh] max-h-[95vh] overflow-y-hidden bg-[#79abf2] shadow-2xl">
             <Timer timeLeft={timeLeft}/>
             <FillInTheBlanks words={hiddenWords} />
             <Category />
