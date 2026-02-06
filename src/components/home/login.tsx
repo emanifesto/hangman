@@ -58,8 +58,6 @@ function decodeJWT(token: any) {
 async function handleCredentialResponse(response: any) {
     const url: string = "https://hangman-26m.pages.dev/"
 
-    console.log("Encoded JWT ID token: " + response.credential);
-
     const responsePayload = decodeJWT(response.credential);
 
     const request: Response = await fetch(`${url}user-login`, {
@@ -72,6 +70,5 @@ async function handleCredentialResponse(response: any) {
         })
     })
 
-    console.log(request)
-    console.log(request.body)
+    console.log(request.ok)
 }
