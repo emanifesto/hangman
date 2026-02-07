@@ -1,6 +1,5 @@
 export const onRequestPost = async (context: any) => {
 
-    const headers = new Headers(context.request.headers)
     const body = await context.request.json()
     const authResponse = body.response
 
@@ -8,15 +7,31 @@ export const onRequestPost = async (context: any) => {
     const authClientId = authResponse.clientId
 
 
-    console.log(context.request)
+    console.log(context)
     console.log(body)
     console.log(authResponse)
     console.log(authPayload)
     console.log(authClientId)
+    const cookie = context.request.headers.get('cookie')
+    console.log(cookie)
+
+    const origin = context.request.headers.get('origin')
+    const originIsInvalid = testForInvalidOrigin(origin)
+    if (originIsInvalid) {
+        console.log(`Origin is invalid. Request came from ${origin}`)
+        return new Response('Fail', {status: 400})
+    }
 
     return new Response('Success', {status: 200})
 }
 
+
+function testForInvalidOrigin(origin: string): boolean{
+    if ((origin === "https://hangman-26m.pages.dev") || origin === "https://hangman.damisaas.com"){
+        return false
+    }
+    return true
+}
 
 
 function decodeJWTPayload(token: any) {
