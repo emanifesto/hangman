@@ -8,11 +8,11 @@ export const onRequestPost = async (context: any) => {
     const authClientId = authResponse.clientId
 
 
-    console.log(`Request: ` + context.request)
-    console.log(`Body: ` + body)
-    console.log(`AuthResponse: ` + authResponse)
-    console.log(`AuthPayload: ` + authPayload)
-    console.log(`AuthClientId: ` + authClientId)
+    console.log(context.request)
+    console.log(body)
+    console.log(authResponse)
+    console.log(authPayload)
+    console.log(authClientId)
 
     return new Response('Success', {status: 200})
 }
