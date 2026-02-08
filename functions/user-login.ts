@@ -22,21 +22,15 @@ export const onRequestPost = async (context: any) => {
     const googlePayload = decodeJWTPayload(googleResponse.credential)
 
     let exp = googlePayload.exp
-    console.log(typeof exp)
     let now: Date | number = Date.now()
-    console.log(now.toString())
-    console.log(now.toString().length)
-    console.log(exp.length)
+
     const trailingZeros = now.toString().length - String(exp).length
-    console.log(trailingZeros)
     exp = new Date(exp * Math.pow(10, trailingZeros))
-    console.log(exp)
     now = new Date(now)
-    console.log(now)
 
     const expIsInvalid = testForInvalidExpiration(exp, now)
     if (expIsInvalid){
-        console.log(`Token expiration is invalid. It expired ${new Date(Number(exp)).toDateString()}. Request was made ${new Date(now).toDateString()}`)
+        console.log(`Token expiration is invalid. It expired ${new Date(Number(exp)).toString()}. Request was made ${new Date(now).toISOString()}`)
         return new Response('Fail', {status: 400})
     }
 
@@ -78,12 +72,10 @@ function testForInvalidClientId(clientId: string, testClientId: string): boolean
 }
 
 function testForInvalidExpiration(exp: Date, now: Date): boolean{
-    console.log(exp)
-    console.log(now)
-    console.log(exp.toDateString())
-    console.log(now.toDateString())
+    console.log(exp.toLocaleDateString())
+    console.log(now.toLocaleString())
 
-    if (now < exp){
+    if (now > exp){
         return false
     }
     return true
