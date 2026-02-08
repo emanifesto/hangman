@@ -22,9 +22,10 @@ export const onRequestPost = async (context: any) => {
     const googlePayload = decodeJWTPayload(googleResponse.credential)
 
     let exp = googlePayload.exp
-    console.log(exp)
     let now: Date | number = Date.now()
-    console.log(now)
+    console.log(now.toString())
+    console.log(now.toString().length)
+    console.log(exp.length)
     const trailingZeros = now.toString().length - exp.length
     console.log(trailingZeros)
     exp = new Date(exp * Math.pow(10, trailingZeros))
