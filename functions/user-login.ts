@@ -22,11 +22,16 @@ export const onRequestPost = async (context: any) => {
     const googlePayload = decodeJWTPayload(googleResponse.credential)
 
     let exp = googlePayload.exp
+    console.log(exp)
     let now: Date | number = Date.now()
+    console.log(now)
     const trailingZeros = now.toString().length - exp.length
+    console.log(trailingZeros)
     exp = new Date(exp * Math.pow(10, trailingZeros))
+    console.log(exp)
     now = new Date(now)
-    
+    console.log(now)
+
     const expIsInvalid = testForInvalidExpiration(exp, now)
     if (expIsInvalid){
         console.log(`Token expiration is invalid. It expired ${new Date(Number(exp)).toDateString()}. Request was made ${new Date(now).toDateString()}`)
