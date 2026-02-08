@@ -21,11 +21,11 @@ export const onRequestPost = async (context: any) => {
 
     const googlePayload = decodeJWTPayload(googleResponse.credential)
 
-    const exp = googlePayload.exp
-    const now = Date.now()
+    const exp = new Date(Number(googlePayload.exp))
+    const now = new Date(Date.now())
     const expIsInvalid = testForInvalidExpiration(exp, now)
     if (expIsInvalid){
-        console.log(`Token expiration is invalid. It expired ${new Date(exp).toDateString()}. Request was made ${new Date(now).toDateString()}`)
+        console.log(`Token expiration is invalid. It expired ${new Date(Number(exp)).toDateString()}. Request was made ${new Date(now).toDateString()}`)
         return new Response('Fail', {status: 400})
     }
 
@@ -44,19 +44,15 @@ export const onRequestPost = async (context: any) => {
     }
 
 
-    console.log(context)
-    console.log(googleResponse)
-    console.log(googlePayload)
-    console.log(googleClientId)
-    const cookie = context.request.headers.get('cookie')
-    console.log(cookie)
+    // console.log(context)
+    // console.log(googleResponse)
+    // console.log(googlePayload)
 
     return new Response('Success', {status: 200})
 }
 
 
 function testForInvalidOrigin(origin: string): boolean{
-    console.log(origin)
     if ((origin === "https://hangman-26m.pages.dev") || origin === "https://hangman.damisaas.com"){
         return false
     }
@@ -64,27 +60,25 @@ function testForInvalidOrigin(origin: string): boolean{
 }
 
 function testForInvalidClientId(clientId: string, testClientId: string): boolean{
-    console.log(clientId, testClientId)
     if (clientId === testClientId){
         return false
     }
     return true
 }
 
-function testForInvalidExpiration(exp: string, now: number): boolean{
+function testForInvalidExpiration(exp: Date, now: Date): boolean{
     console.log(exp)
     console.log(now)
-    console.log(new Date(exp).toDateString())
-    console.log(new Date(now).toDateString())
+    console.log(exp.toDateString())
+    console.log(now.toDateString())
 
-    if (Number(exp) < now){
+    if (exp < now){
         return false
     }
     return true
 }
 
 function testForInvalidIssuer(iss: string): boolean{
-    console.log(iss)
     if (iss === "https://accounts.google.com" || iss === "accounts.google.com"){
         return false
     }
