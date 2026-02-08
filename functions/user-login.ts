@@ -1,19 +1,5 @@
 export const onRequestPost = async (context: any) => {
-
-    const body = await context.request.json()
-    const authResponse = body.response
-
-    const authPayload = decodeJWTPayload(authResponse.credential)
-    const authClientId = authResponse.clientId
-
-
-    console.log(context)
-    console.log(body)
-    console.log(authResponse)
-    console.log(authPayload)
-    console.log(authClientId)
-    const cookie = context.request.headers.get('cookie')
-    console.log(cookie)
+    //code to validate jwt signature and retrieve public keys is needed
 
     const origin = context.request.headers.get('origin')
     const originIsInvalid = testForInvalidOrigin(origin)
@@ -21,6 +7,49 @@ export const onRequestPost = async (context: any) => {
         console.log(`Origin is invalid. Request came from ${origin}`)
         return new Response('Fail', {status: 400})
     }
+
+    const body = await context.request.json()
+    const googleResponse = body.response
+
+    const clientId = context.env.GOOGLE_OAUTH_CLIENT_ID
+    const googleClientId = googleResponse.clientId
+    const googleClientIdIsInvalid = testForInvalidClientId(clientId, googleClientId)
+    if (googleClientIdIsInvalid){
+        console.log(`Google Response Client ID is invalid. Response Client ID: ${googleClientId}`)
+        return new Response('Fail', {status: 400})
+    }
+
+    const googlePayload = decodeJWTPayload(googleResponse.credential)
+
+    const exp = googlePayload.exp
+    const now = Date.now()
+    const expIsInvalid = testForInvalidExpiration(exp, now)
+    if (expIsInvalid){
+        console.log(`Token expiration is invalid. It expired ${Date.parse(exp)}. Request was made ${Date.parse(String(now))}`)
+        return new Response('Fail', {status: 400})
+    }
+
+    const iss = googlePayload.iss
+    const issIsInvalid = testForInvalidIssuer(iss)
+    if (issIsInvalid){
+        console.log(`Invalid issuer. Token issued by ${iss}`)
+        return new Response('Fail', {status: 400})
+    }
+
+    const aud = googlePayload.aud
+    const audIsInvalid = testForInvalidClientId(clientId, aud)
+    if (audIsInvalid){
+        console.log(`Invalid audience. Audience Client ID is ${aud}`)
+        return new Response('Fail', {status: 400})
+    }
+
+
+    console.log(context)
+    console.log(googleResponse)
+    console.log(googlePayload)
+    console.log(googleClientId)
+    const cookie = context.request.headers.get('cookie')
+    console.log(cookie)
 
     return new Response('Success', {status: 200})
 }
@@ -33,6 +62,31 @@ function testForInvalidOrigin(origin: string): boolean{
     return true
 }
 
+function testForInvalidClientId(clientId: string, testClientId: string): boolean{
+    if (clientId === testClientId){
+        return false
+    }
+    return true
+}
+
+function testForInvalidExpiration(exp: string, now: number): boolean{
+    console.log(exp)
+    console.log(now)
+    console.log(Date.parse(exp))
+    console.log(Date.parse(String(now)))
+
+    if (Number(exp) < now){
+        return false
+    }
+    return true
+}
+
+function testForInvalidIssuer(iss: string): boolean{
+    if (iss === "https://accounts.google.com" || iss === "accounts.google.com"){
+        return false
+    }
+    return true
+}
 
 function decodeJWTPayload(token: any) {
 
