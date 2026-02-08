@@ -26,7 +26,7 @@ export const onRequestPost = async (context: any) => {
     console.log(now.toString())
     console.log(now.toString().length)
     console.log(exp.length)
-    const trailingZeros = now.toString().length - exp.length
+    const trailingZeros = now.toString().length - String(exp).length
     console.log(trailingZeros)
     exp = new Date(exp * Math.pow(10, trailingZeros))
     console.log(exp)
@@ -82,7 +82,7 @@ function testForInvalidExpiration(exp: Date, now: Date): boolean{
     console.log(exp.toDateString())
     console.log(now.toDateString())
 
-    if (exp < now){
+    if (now < exp){
         return false
     }
     return true
