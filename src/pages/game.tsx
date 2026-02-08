@@ -6,26 +6,34 @@ import Lives from '../components/game/lives.tsx'
 import Keyboard from '../components/game/keyboard.tsx'
 import MobileInputField from '../components/game/input.tsx'
 
-const word: string = "Satisfactory".toUpperCase()
+const word: string = "That Time I Got Reincarnated as a Slime"
 const hideWord: Function = (word: string): string => {
     return word.replace(/[a-zA-Z]/g, "_")
 }
 
-const findGuessIndexes: Function = (guess: string): number[] => {
-    const indexes: number[] = []
+const findGuessIndexes: Function = (guess: string): Array<number[]> => {
+    const upperIndexes: number[] = []
+    const lowerIndexes: number[] = []
     for (let i = 0; i < word.length; i++){
-        if (word.charAt(i) == guess)
-            indexes.push(i)
+        if (word.charAt(i) == guess){
+            lowerIndexes.push(i)
+            continue
+        }
+        if (word.charAt(i) == guess.toUpperCase())
+            upperIndexes.push(i)
     }
-    return indexes
+    return [upperIndexes, lowerIndexes]
 }
 
 const evaluateGuess: Function = (guess: string, hiddenWords: string): string => {
-    if (word.includes(guess)){
+    if (word.includes(guess) || word.includes(guess.toUpperCase())){
         const hiddenWordsArray: string[] = hiddenWords.split('')
-        const replacementIndexes: number[] = findGuessIndexes(guess)
-        for (const index of replacementIndexes){
+        const [upperReplacements, lowerReplacements]  = findGuessIndexes(guess)
+        for (const index of lowerReplacements){
             hiddenWordsArray[index] = guess
+        }
+        for (const index of upperReplacements){
+            hiddenWordsArray[index] = guess.toUpperCase()
         }
         return hiddenWordsArray.join('')
     }
@@ -70,7 +78,7 @@ export default function Game(){
         }
         
         if (keyPressed.startsWith('Key')){
-            const letter: string = keyPressed[3]
+            const letter: string = keyPressed[3].toLowerCase()
             const newHiddenWords: string = evaluateGuess(letter, hiddenWords)
             if (hiddenWords == newHiddenWords){
 
