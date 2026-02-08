@@ -30,7 +30,7 @@ export const onRequestPost = async (context: any) => {
 
     const expIsInvalid = testForInvalidExpiration(exp, now)
     if (expIsInvalid){
-        console.log(`Token expiration is invalid. It expired ${new Date(Number(exp)).toString()}. Request was made ${new Date(now).toISOString()}`)
+        console.log(`Token expiration is invalid. It expired ${new Date(Number(exp)).toLocaleString("en-US", {timeZone: "America/New_York"})}. Request was made ${new Date(now).toLocaleString("en-US", {timeZone: "UTC-0500"})}`)
         return new Response('Fail', {status: 400})
     }
 
@@ -72,9 +72,6 @@ function testForInvalidClientId(clientId: string, testClientId: string): boolean
 }
 
 function testForInvalidExpiration(exp: Date, now: Date): boolean{
-    console.log(exp.toLocaleDateString())
-    console.log(now.toLocaleString())
-
     if (now > exp){
         return false
     }
