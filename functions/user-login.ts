@@ -25,7 +25,7 @@ export const onRequestPost = async (context: any) => {
     const now = Date.now()
     const expIsInvalid = testForInvalidExpiration(exp, now)
     if (expIsInvalid){
-        console.log(`Token expiration is invalid. It expired ${Date.parse(exp)}. Request was made ${Date.parse(String(now))}`)
+        console.log(`Token expiration is invalid. It expired ${new Date(exp).toDateString()}. Request was made ${new Date(now).toDateString()}`)
         return new Response('Fail', {status: 400})
     }
 
@@ -56,6 +56,7 @@ export const onRequestPost = async (context: any) => {
 
 
 function testForInvalidOrigin(origin: string): boolean{
+    console.log(origin)
     if ((origin === "https://hangman-26m.pages.dev") || origin === "https://hangman.damisaas.com"){
         return false
     }
@@ -63,6 +64,7 @@ function testForInvalidOrigin(origin: string): boolean{
 }
 
 function testForInvalidClientId(clientId: string, testClientId: string): boolean{
+    console.log(clientId, testClientId)
     if (clientId === testClientId){
         return false
     }
@@ -72,8 +74,8 @@ function testForInvalidClientId(clientId: string, testClientId: string): boolean
 function testForInvalidExpiration(exp: string, now: number): boolean{
     console.log(exp)
     console.log(now)
-    console.log(Date.parse(exp))
-    console.log(Date.parse(String(now)))
+    console.log(new Date(exp).toDateString())
+    console.log(new Date(now).toDateString())
 
     if (Number(exp) < now){
         return false
@@ -82,6 +84,7 @@ function testForInvalidExpiration(exp: string, now: number): boolean{
 }
 
 function testForInvalidIssuer(iss: string): boolean{
+    console.log(iss)
     if (iss === "https://accounts.google.com" || iss === "accounts.google.com"){
         return false
     }
