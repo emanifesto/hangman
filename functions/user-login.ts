@@ -22,6 +22,7 @@ export const onRequestPost = async (context: any) => {
     const googlePayload = decodeJWTPayload(googleResponse.credential)
 
     let exp = googlePayload.exp
+    console.log(typeof exp)
     let now: Date | number = Date.now()
     console.log(now.toString())
     console.log(now.toString().length)
