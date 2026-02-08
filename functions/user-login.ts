@@ -49,9 +49,9 @@ export const onRequestPost = async (context: any) => {
     }
 
 
-    // console.log(context)
-    // console.log(googleResponse)
-    // console.log(googlePayload)
+    console.log(context)
+    console.log(googleResponse)
+    console.log(googlePayload)
 
     return new Response('Success', {status: 200})
 }
@@ -72,7 +72,7 @@ function testForInvalidClientId(clientId: string, testClientId: string): boolean
 }
 
 function testForInvalidExpiration(exp: Date, now: Date): boolean{
-    if (now > exp){
+    if (now < exp){
         return false
     }
     return true
