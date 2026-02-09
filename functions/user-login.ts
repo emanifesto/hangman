@@ -52,6 +52,10 @@ export const onRequestPost = async (context: any) => {
     const dateJoined = now.toLocaleString("en-US", {timeZone: "America/New_York"})
     let query
 
+    console.log(context)
+    console.log(googleResponse)
+    console.log(googlePayload)
+    console.log(body.gameData)
     if (body.gameData){
         const {loss, win, score, timePlayed, livesLeft, flawless} = body.gameData
         const lossUpdate = loss ? `dailyGamesLost = dailyGamesLost + 1, weeklyGamesLost = weeklyGamesLost + 1, allGamesLost = allGamesLost + 1` : ""

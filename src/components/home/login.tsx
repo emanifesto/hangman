@@ -44,7 +44,7 @@ function LogoutButton( {handleSignOut}: {handleSignOut: MouseEventHandler}){
     )
 }
 
-async function handleCredentialResponse(response: any, gameData={}) {
+async function handleCredentialResponse(response: any, gameData: Boolean | Object = false) {
     const url: string = "https://hangman-26m.pages.dev/"
 
     console.log(Boolean(gameData))
