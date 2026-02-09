@@ -1,9 +1,9 @@
 import {GoogleLogin, googleLogout} from "@react-oauth/google"
 import type { MouseEventHandler } from "react"
 
-export default function LoginButton( {isLoggedIn=false, setLoggedIn}: {isLoggedIn: boolean, setLoggedIn: Function} ){
+export default function LoginButton( {...props}: {isLoggedIn: boolean, setLoggedIn: Function, gameData: Object} ){
     function handleSignOut(){
-        setLoggedIn(false)
+        props.setLoggedIn(false)
         googleLogout()
     }
     const small_screen: boolean = window.innerWidth < 700
@@ -21,11 +21,15 @@ export default function LoginButton( {isLoggedIn=false, setLoggedIn}: {isLoggedI
 
     return(
         <button className="rounded-md overflow-hidden">
-            {isLoggedIn ? 
+            {props.isLoggedIn ? 
                 <LogoutButton handleSignOut={handleSignOut} /> :
                 <GoogleLogin text={login_text} width={login_width} auto_select={true} onSuccess={(response) => {
-                    setLoggedIn(true)
-                    handleCredentialResponse(response)
+                    props.setLoggedIn(true)
+                    if (props.gameData){
+                        handleCredentialResponse(response, props.gameData)
+                    }else{
+                        handleCredentialResponse(response)
+                    }
                 }}/>
             }
         </button>
@@ -40,15 +44,20 @@ function LogoutButton( {handleSignOut}: {handleSignOut: MouseEventHandler}){
     )
 }
 
-async function handleCredentialResponse(response: any) {
+async function handleCredentialResponse(response: any, gameData={}) {
     const url: string = "https://hangman-26m.pages.dev/"
+
+    console.log(Boolean(gameData))
+    let body: Object
+
+    gameData ?
+        body = {response: response, gameData: gameData} :
+        body = {response: response}
 
     const serverLoginResponse: Response = await fetch(`${url}user-login`, {
         method: "POST",
         headers: {"content-type": 'application/json'},
-        body: JSON.stringify({
-            response: response,
-        })
+        body: JSON.stringify(body)
     })
     
     console.log(serverLoginResponse.ok)

@@ -30,7 +30,7 @@ export const onRequestPost = async (context: any) => {
 
     const expIsInvalid = testForInvalidExpiration(exp, now)
     if (expIsInvalid){
-        console.log(`Token expiration is invalid. It expired ${new Date(Number(exp)).toLocaleString("en-US", {timeZone: "America/New_York"})}. Request was made ${new Date(now).toLocaleString("en-US", {timeZone: "America/New_York"})}`)
+        console.log(`Token expiration is invalid. It expired ${exp.toLocaleString("en-US", {timeZone: "America/New_York"})}. Request was made ${now.toLocaleString("en-US", {timeZone: "America/New_York"})}`)
         return new Response('Fail', {status: 400})
     }
 
@@ -48,7 +48,36 @@ export const onRequestPost = async (context: any) => {
         return new Response('Fail', {status: 400})
     }
 
+    const {sub, email, name, picture} = googlePayload
+    const dateJoined = now.toLocaleString("en-US", {timeZone: "America/New_York"})
+    let query
 
+    if (body.gameData){
+        const {loss, win, score, timePlayed, livesLeft, flawless} = body.gameData
+        const lossUpdate = loss ? `dailyGamesLost = dailyGamesLost + 1, weeklyGamesLost = weeklyGamesLost + 1, allGamesLost = allGamesLost + 1` : ""
+        const winUpdate = win ? `dailyGamesWon = dailyGamesWon + 1, weeklyGamesWon = weeklyGamesWon + 1, allGamesWon = allGamesWon + 1` : ""
+        const flawlessUpdate = flawless ? `dailyFlawless = dailyFlawless + 1, weeklyFlawless = weeklyFlawless + 1, allFlawless = allFlawless + 1` : ""
+        const timePlayedUpdate = `dailyTimePlayed = dailyTimePlayed + ${timePlayed}, weeklyTimePlayed = weeklyTimePlayed + ${timePlayed}, allTimePlayed = allTimePlayed + ${timePlayed}`
+        const livesLeftUpdate = `dailyLivesLeft = dailyLivesLeft + ${livesLeft}, weeklyLivesLeft = weeklyLivesLeft + ${livesLeft}, allLivesLeft = allLivesLeft + ${livesLeft}`
+        const scoreUpdate = `dailyScore = dailyScore + ${score}, weeklyScore = weeklyScore + ${score}, allScore = allScore + ${score}`
+
+        query = context.env.DB.prepare(`IF NOT EXISTS (SELECT userID FROM Users WHERE userID = ${sub})
+            BEGIN INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined, dailyGamesLost, dailyGamesWon, 
+            dailyScore, dailyTimePlayed, dailyLivesLeft, dailyFlawless, weeklyGamesLost, weeklyGamesWon, weeklyScore,
+            weeklyTimePlayed, weeklyLivesLeft, weeklyFlawless, allGamesLost, allGamesWon, allScore, allTimePlayed,
+            allLivesLeft, allFlawless) VALUES (${sub}, ${name}, ${name}, ${email}, ${picture}, ${dateJoined}, ${loss}, ${win},
+            ${score}, ${timePlayed}, ${livesLeft}, ${flawless}, ${loss}, ${win}, ${score}, ${timePlayed}, ${livesLeft}, 
+            ${flawless}, ${loss}, ${win}, ${score}, ${timePlayed}, ${livesLeft}, ${flawless}); END
+            ELSE BEGIN UPDATE Users SET (${lossUpdate}, ${winUpdate}, ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) 
+            WHERE userID = ${sub}; END`)
+    }else{
+        query = context.env.DB.prepare(`IF NOT EXISTS (SELECT userID FROM Users WHERE userID = ${sub})
+            BEGIN INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined) VALUES (${sub},
+            ${name}, ${name}, ${email}, ${picture}, ${dateJoined})`)
+    }
+
+    const returnVal = await query.run()
+    console.log(returnVal)
     console.log(context)
     console.log(googleResponse)
     console.log(googlePayload)
