@@ -75,9 +75,7 @@ export const onRequestPost = async (context: any) => {
             ELSE BEGIN UPDATE Users SET (${lossUpdate}, ${winUpdate}, ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) 
             WHERE userID = ${sub}; END`)
     }else{
-        const theQuery = `IF NOT EXISTS (SELECT userID FROM Users WHERE userID = ${sub})
-            BEGIN INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined) VALUES (${sub},
-            ${name}, ${name}, ${email}, ${picture}, ${dateJoined})`
+        const theQuery = `IF NOT EXISTS (SELECT userID FROM Users WHERE userID = ${sub}) BEGIN INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined) VALUES (${sub}, ${name}, ${name}, ${email}, ${picture}, ${dateJoined})`
         console.log(theQuery)
         query = context.env.DB.prepare(theQuery)
     }
