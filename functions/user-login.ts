@@ -76,7 +76,7 @@ export const onRequestPost = async (context: any) => {
             WHERE userID = ${sub}; END`)
     }else{
         query = context.env.DB.prepare(`INSERT INTO Users (userID, name, username, email, pictureURL, 
-            dateJoined) VALUES (${sub}, ${name}, ${name}, ${email}, ${picture}, ${dateJoined})
+            dateJoined) VALUES ("${sub}", "${name}", "${name}", "${email}", "${picture}", "${dateJoined}")
              ON CONFLICT(userID) DO NOTHING`)
     }
 
