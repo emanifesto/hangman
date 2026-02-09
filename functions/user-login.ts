@@ -55,7 +55,7 @@ export const onRequestPost = async (context: any) => {
     console.log(context)
     console.log(googleResponse)
     console.log(googlePayload)
-    console.log(body.gameData)
+    console.log(Boolean(body.gameData))
     if (body.gameData){
         const {loss, win, score, timePlayed, livesLeft, flawless} = body.gameData
         const lossUpdate = loss ? `dailyGamesLost = dailyGamesLost + 1, weeklyGamesLost = weeklyGamesLost + 1, allGamesLost = allGamesLost + 1` : ""
@@ -75,9 +75,11 @@ export const onRequestPost = async (context: any) => {
             ELSE BEGIN UPDATE Users SET (${lossUpdate}, ${winUpdate}, ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) 
             WHERE userID = ${sub}; END`)
     }else{
-        query = context.env.DB.prepare(`IF NOT EXISTS (SELECT userID FROM Users WHERE userID = ${sub})
+        const theQuery = `IF NOT EXISTS (SELECT userID FROM Users WHERE userID = ${sub})
             BEGIN INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined) VALUES (${sub},
-            ${name}, ${name}, ${email}, ${picture}, ${dateJoined})`)
+            ${name}, ${name}, ${email}, ${picture}, ${dateJoined})`
+        console.log(theQuery)
+        query = context.env.DB.prepare(theQuery)
     }
 
     const returnVal = await query.run()
