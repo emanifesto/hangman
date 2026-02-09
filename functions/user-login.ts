@@ -52,10 +52,6 @@ export const onRequestPost = async (context: any) => {
     const dateJoined = now.toLocaleString("en-US", {timeZone: "America/New_York"})
     let query
 
-    console.log(context)
-    console.log(googleResponse)
-    console.log(googlePayload)
-    console.log(Boolean(body.gameData))
     if (body.gameData){
         const {loss, win, score, timePlayed, livesLeft, flawless} = body.gameData
         const lossUpdate = loss ? `dailyGamesLost = dailyGamesLost + 1, weeklyGamesLost = weeklyGamesLost + 1, allGamesLost = allGamesLost + 1` : ""
@@ -65,19 +61,18 @@ export const onRequestPost = async (context: any) => {
         const livesLeftUpdate = `dailyLivesLeft = dailyLivesLeft + ${livesLeft}, weeklyLivesLeft = weeklyLivesLeft + ${livesLeft}, allLivesLeft = allLivesLeft + ${livesLeft}`
         const scoreUpdate = `dailyScore = dailyScore + ${score}, weeklyScore = weeklyScore + ${score}, allScore = allScore + ${score}`
 
-        query = context.env.DB.prepare(`IF NOT EXISTS (SELECT userID FROM Users WHERE userID = ${sub})
-            BEGIN INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined, dailyGamesLost, dailyGamesWon, 
-            dailyScore, dailyTimePlayed, dailyLivesLeft, dailyFlawless, weeklyGamesLost, weeklyGamesWon, weeklyScore,
-            weeklyTimePlayed, weeklyLivesLeft, weeklyFlawless, allGamesLost, allGamesWon, allScore, allTimePlayed,
-            allLivesLeft, allFlawless) VALUES (${sub}, ${name}, ${name}, ${email}, ${picture}, ${dateJoined}, ${loss}, ${win},
-            ${score}, ${timePlayed}, ${livesLeft}, ${flawless}, ${loss}, ${win}, ${score}, ${timePlayed}, ${livesLeft}, 
-            ${flawless}, ${loss}, ${win}, ${score}, ${timePlayed}, ${livesLeft}, ${flawless}); END
-            ELSE BEGIN UPDATE Users SET (${lossUpdate}, ${winUpdate}, ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) 
-            WHERE userID = ${sub}; END`)
-    }else{
-        query = context.env.DB.prepare(`INSERT INTO Users (userID, name, username, email, pictureURL, 
-            dateJoined) VALUES ("${sub}", "${name}", "${name}", "${email}", "${picture}", "${dateJoined}")
-             ON CONFLICT(userID) DO NOTHING`)
+        query = context.env.DB.prepare(`INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined, 
+            dailyGamesLost, dailyGamesWon, dailyScore, dailyTimePlayed, dailyLivesLeft, dailyFlawless, weeklyGamesLost, 
+            weeklyGamesWon, weeklyScore, weeklyTimePlayed, weeklyLivesLeft, weeklyFlawless, allGamesLost, allGamesWon, 
+            allScore, allTimePlayed, allLivesLeft, allFlawless) VALUES ("${sub}", "${name}", "${name}", "${email}", 
+            "${picture}", "${dateJoined}", ${loss}, ${win}, ${score}, ${timePlayed}, ${livesLeft}, ${flawless}, ${loss}, 
+            ${win}, ${score}, ${timePlayed}, ${livesLeft}, ${flawless}, ${loss}, ${win}, ${score}, ${timePlayed}, 
+            ${livesLeft}, ${flawless}) ON CONFLICT(userID) DO UPDATE Users SET (${lossUpdate}, ${winUpdate}, 
+            ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) WHERE userID = ${sub}`)    
+    } else {
+        query = context.env.DB.prepare(`INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined)
+            VALUES ("${sub}", "${name}", "${name}", "${email}", "${picture}", "${dateJoined}")
+            ON CONFLICT(userID) DO NOTHING`)
     }
 
     const returnVal = await query.run()

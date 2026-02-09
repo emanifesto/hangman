@@ -23,13 +23,16 @@ export default function LoginButton( {...props}: {isLoggedIn: boolean, setLogged
         <button className="rounded-md overflow-hidden">
             {props.isLoggedIn ? 
                 <LogoutButton handleSignOut={handleSignOut} /> :
-                <GoogleLogin text={login_text} width={login_width} auto_select={true} onSuccess={(response) => {
-                    props.setLoggedIn(true)
+                <GoogleLogin text={login_text} width={login_width} auto_select={true} onSuccess={async (response) => {
+                    let success
                     if (props.gameData){
-                        handleCredentialResponse(response, props.gameData)
+                        success = await handleCredentialResponse(response, props.gameData)
                     }else{
-                        handleCredentialResponse(response)
+                        success = await handleCredentialResponse(response)
                     }
+
+                    if (success)
+                        props.setLoggedIn(true)
                 }}/>
             }
         </button>
@@ -44,7 +47,7 @@ function LogoutButton( {handleSignOut}: {handleSignOut: MouseEventHandler}){
     )
 }
 
-async function handleCredentialResponse(response: any, gameData: Boolean | Object = false) {
+async function handleCredentialResponse(response: any, gameData: Boolean | Object = false): Promise<boolean> {
     const url: string = "https://hangman-26m.pages.dev/"
 
     let body: Object
@@ -59,5 +62,5 @@ async function handleCredentialResponse(response: any, gameData: Boolean | Objec
         body: JSON.stringify(body)
     })
     
-    console.log(serverLoginResponse.ok)
+    return serverLoginResponse.ok
 }
