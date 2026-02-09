@@ -75,9 +75,9 @@ export const onRequestPost = async (context: any) => {
             ELSE BEGIN UPDATE Users SET (${lossUpdate}, ${winUpdate}, ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) 
             WHERE userID = ${sub}; END`)
     }else{
-        const theQuery = `INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined) VALUES ("${sub}", "${name}", "${name}", "${email}", "${picture}", "${dateJoined}") ON CONFLICT(userID) DO NOTHING`
-        console.log(theQuery)
-        query = context.env.DB.prepare(theQuery)
+        query = context.env.DB.prepare(`INSERT INTO Users (userID, name, username, email, pictureURL, 
+            dateJoined) VALUES (${sub}, ${name}, ${name}, ${email}, ${picture}, ${dateJoined})
+             ON CONFLICT(userID) DO NOTHING`)
     }
 
     const returnVal = await query.run()
