@@ -89,13 +89,13 @@ export default function Game(){
     }
 
     return(
-        <div className="flex flex-wrap lg:grid grid-cols-11 justify-around gap-3 grid-rows-10 lg:px-5 lg:pb-4 h-[95vh] bg-[#79abf2] shadow-2xl">
+        <div className="flex flex-wrap lg:grid grid-cols-11 justify-around gap-1 grid-rows-10 lg:px-5 pb-4 h-[95vh] bg-[#79abf2] shadow-2xl">
             <Timer timeLeft={timeLeft}/>
             <FillInTheBlanks words={hiddenWords} />
+            {window.innerWidth < 1024 && <MobileInputField keyPress={handleKeyDown}/>}
             <Category />
             <Lives />
             <Keyboard keyPress={handleKeyDown} />
-            {window.innerWidth < 1024 && <MobileInputField keyPress={handleKeyDown}/>}
         </div>
     )
 }

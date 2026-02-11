@@ -23,7 +23,7 @@ export default function MobileInputField( {keyPress}: {keyPress: Function}){
                     field.value = userInput
                 }
             }}
-            className="bg-[ghostwhite] w-[80%] h-[4ch] text-center">
+            className="bg-[ghostwhite] w-[80%] h-[4ch] text-center mt-4">
         </input>
     )
 }
