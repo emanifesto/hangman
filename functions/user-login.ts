@@ -15,7 +15,7 @@ export const onRequestPost = async (context: any) => {
     console.log(gcert.headers.get('Cache-Control'))
     const entries: any = []
     for (let entry of gcert.headers.entries()){
-        entries.append(entry)
+        entries.push(entry)
     }
     console.log(entries)
     console.log(await gcert.json())
