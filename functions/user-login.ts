@@ -12,9 +12,7 @@ export const onRequestPost = async (context: any) => {
     const googleResponse = body.response
 
     const gcert = await fetch('https://www.googleapis.com/oauth2/v3/certs')
-    console.log(gcert.redirected)
-    console.log(gcert.url)
-    console.log(gcert.headers)
+    console.log(gcert.headers.entries())
     console.log(await gcert.json())
 
     const clientId = context.env.GOOGLE_OAUTH_CLIENT_ID
