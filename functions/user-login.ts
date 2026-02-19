@@ -25,7 +25,12 @@ export const onRequestPost = async (context: any) => {
     console.log(new Date(from.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
     console.log(from.keys)
 
-    const googlePayload = decodeJWTPayload(googleResponse.credential)
+    
+    const googleHeader = decodeJWT(googleResponse.credential, 0)
+    const googlePayload = decodeJWT(googleResponse.credential, 1)
+
+    console.log(googleHeader)
+    console.log(googlePayload)
 
     let exp = googlePayload.exp
     let now: Date | number = Date.now()
@@ -76,15 +81,13 @@ export const onRequestPost = async (context: any) => {
             ${livesLeft}, ${flawless}) ON CONFLICT(userID) DO UPDATE Users SET (${lossUpdate}, ${winUpdate}, 
             ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) WHERE userID = ${sub}`)    
     } else {
-        query = context.env.DB.prepare(`INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined)
+        query = context.env.DB.prepare(`INSERT PINTO Users (userID, name, username, email, pictureURL, dateJoined)
             VALUES ("${sub}", "${name}", "${name}", "${email}", "${picture}", "${dateJoined}")
             ON CONFLICT(userID) DO NOTHING`)
     }
 
     const returnVal = await query.run()
     console.log(returnVal)
-    console.log(googleResponse)
-    console.log(googlePayload)
 
     return new Response('Success', {status: 200})
 }
@@ -129,11 +132,11 @@ function testForInvalidIssuer(iss: string): boolean{
     return true
 }
 
-function decodeJWTPayload(token: any) {
+function decodeJWT(token: any, position: number) {
 
-    let base64Url = token.split(".")[1];
+    let base64Url = token.split(".")[position];
     let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    let jsonPayload = decodeURIComponent(
+    let jsonObject = decodeURIComponent(
         atob(base64)
         .split("")
         .map(function (c) {
@@ -141,5 +144,5 @@ function decodeJWTPayload(token: any) {
         })
         .join("")
     );
-    return JSON.parse(jsonPayload);
+    return JSON.parse(jsonObject);
 }
