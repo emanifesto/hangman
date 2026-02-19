@@ -19,7 +19,7 @@ export const onRequestPost = async (context: any) => {
         return new Response('Fail', {status: 400})
     }
 
-    const from: any = fetchGooglePublicKeys()
+    const from: any = await fetchGooglePublicKeys()
     console.log(from)
     console.log(from.expiration)
     console.log(new Date(from.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
