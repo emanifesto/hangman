@@ -11,15 +11,6 @@ export const onRequestPost = async (context: any) => {
     const body = await context.request.json()
     const googleResponse = body.response
 
-    const gcert = await fetch('https://www.googleapis.com/oauth2/v3/certs')
-    console.log(gcert.headers.get('Cache-Control'))
-    const entries: any = []
-    for (let entry of gcert.headers.entries()){
-        entries.push(entry)
-    }
-    console.log(entries)
-    console.log(await gcert.json())
-
     const clientId = context.env.GOOGLE_OAUTH_CLIENT_ID
     const googleClientId = googleResponse.clientId
     const googleClientIdIsInvalid = testForInvalidClientId(clientId, googleClientId)
@@ -27,6 +18,12 @@ export const onRequestPost = async (context: any) => {
         console.log(`Google Response Client ID is invalid. Response Client ID: ${googleClientId}`)
         return new Response('Fail', {status: 400})
     }
+
+    const from: any = fetchGooglePublicKeys()
+    console.log(from)
+    console.log(from.expiration)
+    console.log(new Date(from.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
+    console.log(from.keys)
 
     const googlePayload = decodeJWTPayload(googleResponse.credential)
 
@@ -86,7 +83,6 @@ export const onRequestPost = async (context: any) => {
 
     const returnVal = await query.run()
     console.log(returnVal)
-    console.log(context)
     console.log(googleResponse)
     console.log(googlePayload)
 
@@ -106,6 +102,17 @@ function testForInvalidClientId(clientId: string, testClientId: string): boolean
         return false
     }
     return true
+}
+
+async function fetchGooglePublicKeys(): Promise<Object> {
+    const googleCert = await fetch('https://www.googleapis.com/oauth2/v3/certs')
+    const expiration: number = Date.now() + (Number(googleCert.headers.get('Cache-Control')?.split(',')[1].slice(9)) * 1000)
+    const keys: Object = await googleCert.json().then(res => res.keys)
+
+    return {
+        'expiration': expiration,
+        'keys': keys,
+    }
 }
 
 function testForInvalidExpiration(exp: Date, now: Date): boolean{
