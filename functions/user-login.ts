@@ -1,5 +1,7 @@
+// import jwt from 'jsonwebtoken'
+// const jwt = require('jsonwebtoken')
+
 export const onRequestPost = async (context: any) => {
-    //code to validate jwt signature and retrieve public keys is needed
 
     const origin = context.request.headers.get('origin')
     const originIsInvalid = testForInvalidOrigin(origin)
@@ -18,29 +20,48 @@ export const onRequestPost = async (context: any) => {
         console.log(`Google Response Client ID is invalid. Response Client ID: ${googleClientId}`)
         return new Response('Fail', {status: 400})
     }
+    
+    const token = googleResponse.credential
+    const googleJWTHeader = decodeJWT(token, 0)
 
-    const googlePublicKeys = await context.env.KV.get('google-public-keys', 'json')
-    console.log(googlePublicKeys)
-    if (googlePublicKeys){
-        console.log(googlePublicKeys[0])
-        console.log(googlePublicKeys[1])
-    } else {
-        const newGooglePublicKeys: any = await fetchGooglePublicKeys()
-        
-        console.log(new Date(newGooglePublicKeys.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
-        const KVUpdate = await context.env.KV.put('google-public-keys', JSON.stringify(newGooglePublicKeys.keys), {expiration: newGooglePublicKeys.expiration / 1000})
-        console.log(KVUpdate)
-        console.log(newGooglePublicKeys)
+    const googleJWTAlg = googleJWTHeader.alg
+    if (googleJWTAlg != "RS256"){
+        console.log(`False algorithm. JWT from response signed with ${googleJWTAlg}`)
+        return new Response("Fail", {status: 400})
     }
 
-    
-    const googleHeader = decodeJWT(googleResponse.credential, 0)
-    const googlePayload = decodeJWT(googleResponse.credential, 1)
+    let googleCertificates
+    googleCertificates = await context.env.KV.get('google-certificates', 'json')
 
-    console.log(googleHeader)
-    console.log(googlePayload)
+    if (!googleCertificates){
+        const newGoogleCertificates: any = await fetchGoogleCertificates()
+        const KVUpdate = await context.env.KV.put('google-certificates', JSON.stringify(newGoogleCertificates.keys), {expiration: newGoogleCertificates.expiration / 1000})
+        googleCertificates = newGoogleCertificates.keys
+    }
 
-    let exp = googlePayload.exp
+    const googleJWTkid = googleJWTHeader.kid
+    let googlePublicKey
+    for (const certificate of googleCertificates){
+        if ((certificate.kid == googleJWTkid) && (certificate.alg == googleJWTAlg)){
+            googlePublicKey = certificate.n
+            break
+        }
+    }
+
+    if (!googlePublicKey){
+        console.log(`Google Certificates do not contain public key with kid - ${googleJWTkid}`)
+        return new Response('Fail', {status: 400})
+    }
+
+    console.log(googleCertificates)
+    console.log(googlePublicKey)
+
+
+
+
+    const googleJWTPayload = decodeJWT(token, 1)
+
+    let exp = googleJWTPayload.exp
     let now: Date | number = Date.now()
 
     const trailingZeros = now.toString().length - String(exp).length
@@ -53,21 +74,21 @@ export const onRequestPost = async (context: any) => {
         return new Response('Fail', {status: 400})
     }
 
-    const iss = googlePayload.iss
+    const iss = googleJWTPayload.iss
     const issIsInvalid = testForInvalidIssuer(iss)
     if (issIsInvalid){
         console.log(`Invalid issuer. Token issued by ${iss}`)
         return new Response('Fail', {status: 400})
     }
 
-    const aud = googlePayload.aud
+    const aud = googleJWTPayload.aud
     const audIsInvalid = testForInvalidClientId(clientId, aud)
     if (audIsInvalid){
         console.log(`Invalid audience. Audience Client ID is ${aud}`)
         return new Response('Fail', {status: 400})
     }
 
-    const {sub, email, name, picture} = googlePayload
+    const {sub, email, name, picture} = googleJWTPayload
     const dateJoined = now.toLocaleString("en-US", {timeZone: "America/New_York"})
     let query
 
@@ -115,10 +136,10 @@ function testForInvalidClientId(clientId: string, testClientId: string): boolean
     return true
 }
 
-async function fetchGooglePublicKeys(): Promise<Object> {
-    const googleCert = await fetch('https://www.googleapis.com/oauth2/v3/certs')
-    const expiration: number = Date.now() + (Number(googleCert.headers.get('Cache-Control')?.split(',')[1].slice(9)) * 1000)
-    const keys: Object = await googleCert.json().then(res => res.keys)
+async function fetchGoogleCertificates(): Promise<Object> {
+    const googleCertificate = await fetch('https://www.googleapis.com/oauth2/v3/certs')
+    const expiration: number = Date.now() + (Number(googleCertificate.headers.get('Cache-Control')?.split(',')[1].slice(9)) * 1000)
+    const keys: Object = await googleCertificate.json().then(res => res.keys)
 
     return {
         'expiration': expiration,
