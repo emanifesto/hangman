@@ -22,7 +22,8 @@ export const onRequestPost = async (context: any) => {
     const googlePublicKeys = await context.env.KV.get('google-public-keys', 'json')
     console.log(googlePublicKeys)
     if (googlePublicKeys){
-
+        console.log(googlePublicKeys[0])
+        console.log(googlePublicKeys[1])
     } else {
         const newGooglePublicKeys: any = await fetchGooglePublicKeys()
         
