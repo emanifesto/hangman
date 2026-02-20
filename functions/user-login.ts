@@ -19,11 +19,19 @@ export const onRequestPost = async (context: any) => {
         return new Response('Fail', {status: 400})
     }
 
-    const newGooglePublicKeys: any = await fetchGooglePublicKeys()
-    console.log(newGooglePublicKeys)
-    console.log(newGooglePublicKeys.expiration)
-    console.log(new Date(newGooglePublicKeys.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
-    console.log(newGooglePublicKeys.keys)
+    // const newGooglePublicKeys: any = await fetchGooglePublicKeys()
+    // console.log(newGooglePublicKeys)
+    // console.log(newGooglePublicKeys.expiration)
+    // console.log(new Date(newGooglePublicKeys.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
+    // console.log(newGooglePublicKeys.keys)
+
+    try{
+    const kvnamespace = context.KV.get('random')
+    console.log(kvnamespace)
+    }
+    catch (e){
+        console.log(e)
+    }
 
     
     const googleHeader = decodeJWT(googleResponse.credential, 0)
