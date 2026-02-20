@@ -27,7 +27,7 @@ export const onRequestPost = async (context: any) => {
         const newGooglePublicKeys: any = await fetchGooglePublicKeys()
         
         console.log(new Date(newGooglePublicKeys.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
-        const KVUpdate = await context.env.KV.put('google-public-keys', newGooglePublicKeys.keys, {expiration: newGooglePublicKeys.expiration / 1000})
+        const KVUpdate = await context.env.KV.put('google-public-keys', JSON.stringify(newGooglePublicKeys.keys), {expiration: newGooglePublicKeys.expiration / 1000})
         console.log(KVUpdate)
         console.log(newGooglePublicKeys)
     }
