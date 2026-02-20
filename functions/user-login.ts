@@ -26,7 +26,7 @@ export const onRequestPost = async (context: any) => {
     // console.log(newGooglePublicKeys.keys)
 
     try{
-    const kvnamespace = context.KV.get('random')
+    const kvnamespace = context.env.KV.get('random')
     console.log(kvnamespace)
     }
     catch (e){
