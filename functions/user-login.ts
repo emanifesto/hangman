@@ -19,18 +19,17 @@ export const onRequestPost = async (context: any) => {
         return new Response('Fail', {status: 400})
     }
 
-    // const newGooglePublicKeys: any = await fetchGooglePublicKeys()
-    // console.log(newGooglePublicKeys)
-    // console.log(newGooglePublicKeys.expiration)
-    // console.log(new Date(newGooglePublicKeys.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
-    // console.log(newGooglePublicKeys.keys)
+    const googlePublicKeys = await context.env.KV.get('google-public-keys', 'json')
+    console.log(googlePublicKeys)
+    if (googlePublicKeys){
 
-    try{
-    const kvnamespace = context.env.KV.get('random')
-    console.log(kvnamespace)
-    }
-    catch (e){
-        console.log(e)
+    } else {
+        const newGooglePublicKeys: any = await fetchGooglePublicKeys()
+        
+        console.log(new Date(newGooglePublicKeys.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
+        const KVUpdate = await context.env.KV.put('google-public-keys', newGooglePublicKeys.keys, {expiration: newGooglePublicKeys.expiration})
+        console.log(KVUpdate)
+        console.log(newGooglePublicKeys)
     }
 
     
