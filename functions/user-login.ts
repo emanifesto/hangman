@@ -1,5 +1,4 @@
-// import jwt from 'jsonwebtoken'
-// const jwt = require('jsonwebtoken')
+import jwt from 'jsonwebtoken'
 
 export const onRequestPost = async (context: any) => {
 
@@ -53,45 +52,29 @@ export const onRequestPost = async (context: any) => {
         return new Response('Fail', {status: 400})
     }
 
-    console.log(googleCertificates)
-    console.log(googlePublicKey)
-
-
-
-
-    const googleJWTPayload = decodeJWT(token, 1)
-
-    let exp = googleJWTPayload.exp
-    let now: Date | number = Date.now()
-
-    const trailingZeros = now.toString().length - String(exp).length
-    exp = new Date(exp * Math.pow(10, trailingZeros))
-    now = new Date(now)
-
-    const expIsInvalid = testForInvalidExpiration(exp, now)
-    if (expIsInvalid){
-        console.log(`Token expiration is invalid. It expired ${exp.toLocaleString("en-US", {timeZone: "America/New_York"})}. Request was made ${now.toLocaleString("en-US", {timeZone: "America/New_York"})}`)
-        return new Response('Fail', {status: 400})
+    let googleJWTPayload: any
+    try {
+        googleJWTPayload = jwt.verify(token, googlePublicKey, {
+            algorithms: [googleJWTAlg],
+            ignoreExpiration: false,
+            issuer: ["https://accounts.google.com", "accounts.google.com"],
+            audience: clientId,
+        })
+    } catch(e) {
+        console.log(e)
+        return new Response("Fail", {status: 400})
     }
 
-    const iss = googleJWTPayload.iss
-    const issIsInvalid = testForInvalidIssuer(iss)
-    if (issIsInvalid){
-        console.log(`Invalid issuer. Token issued by ${iss}`)
-        return new Response('Fail', {status: 400})
-    }
-
-    const aud = googleJWTPayload.aud
-    const audIsInvalid = testForInvalidClientId(clientId, aud)
-    if (audIsInvalid){
-        console.log(`Invalid audience. Audience Client ID is ${aud}`)
-        return new Response('Fail', {status: 400})
+    console.log(googleJWTPayload)
+    if (!googleJWTPayload){
+        console.log(`jsonwebtoken library could not verify token: ${token} against google public key: ${googlePublicKey}`)
+        return new Response("Fail", {status: 400})
     }
 
     const {sub, email, name, picture} = googleJWTPayload
-    const dateJoined = now.toLocaleString("en-US", {timeZone: "America/New_York"})
-    let query
+    const dateJoined = new Date(Date.now()).toLocaleString("en-US", {timeZone: "America/New_York"})
 
+    let query
     if (body.gameData){
         const {loss, win, score, timePlayed, livesLeft, flawless} = body.gameData
         const lossUpdate = loss ? `dailyGamesLost = dailyGamesLost + 1, weeklyGamesLost = weeklyGamesLost + 1, allGamesLost = allGamesLost + 1` : ""
@@ -115,12 +98,11 @@ export const onRequestPost = async (context: any) => {
             ON CONFLICT(userID) DO NOTHING`)
     }
 
-    const returnVal = await query.run()
-    console.log(returnVal)
+    const DBreturn = await query.run()
+    console.log(DBreturn)
 
     return new Response('Success', {status: 200})
 }
-
 
 function testForInvalidOrigin(origin: string): boolean{
     if ((origin === "https://hangman-26m.pages.dev") || origin === "https://hangman.damisaas.com"){
@@ -145,20 +127,6 @@ async function fetchGoogleCertificates(): Promise<Object> {
         'expiration': expiration,
         'keys': keys,
     }
-}
-
-function testForInvalidExpiration(exp: Date, now: Date): boolean{
-    if (now < exp){
-        return false
-    }
-    return true
-}
-
-function testForInvalidIssuer(iss: string): boolean{
-    if (iss === "https://accounts.google.com" || iss === "accounts.google.com"){
-        return false
-    }
-    return true
 }
 
 function decodeJWT(token: any, position: number) {
