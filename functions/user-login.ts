@@ -19,11 +19,11 @@ export const onRequestPost = async (context: any) => {
         return new Response('Fail', {status: 400})
     }
 
-    const from: any = await fetchGooglePublicKeys()
-    console.log(from)
-    console.log(from.expiration)
-    console.log(new Date(from.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
-    console.log(from.keys)
+    const newGooglePublicKeys: any = await fetchGooglePublicKeys()
+    console.log(newGooglePublicKeys)
+    console.log(newGooglePublicKeys.expiration)
+    console.log(new Date(newGooglePublicKeys.expiration).toLocaleString("en-US", {timeZone: "America/New_York"}))
+    console.log(newGooglePublicKeys.keys)
 
     
     const googleHeader = decodeJWT(googleResponse.credential, 0)
@@ -81,7 +81,7 @@ export const onRequestPost = async (context: any) => {
             ${livesLeft}, ${flawless}) ON CONFLICT(userID) DO UPDATE Users SET (${lossUpdate}, ${winUpdate}, 
             ${flawlessUpdate}, ${timePlayedUpdate}, ${livesLeftUpdate}, ${scoreUpdate}) WHERE userID = ${sub}`)    
     } else {
-        query = context.env.DB.prepare(`INSERT PINTO Users (userID, name, username, email, pictureURL, dateJoined)
+        query = context.env.DB.prepare(`INSERT INTO Users (userID, name, username, email, pictureURL, dateJoined)
             VALUES ("${sub}", "${name}", "${name}", "${email}", "${picture}", "${dateJoined}")
             ON CONFLICT(userID) DO NOTHING`)
     }
