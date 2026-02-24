@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hangman",
+  "compatibility_date": "2026-02-24",
+  "main": "",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "169c25743e004df0bc94f17d6a134f17"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hangman",
+      "database_id": "bb53dfa2-3be5-4de7-af2d-898b73c34280"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "0 5 * * *",
+      "0 5 * * MON"
+    ]
+  },
+}
