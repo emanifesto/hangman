@@ -2,14 +2,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hangman",
   "compatibility_date": "2026-02-24",
-  "main": "",
+  "main": "./src/_worker.ts",
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
   },
   "assets": {
     "not_found_handling": "single-page-application",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "directory": "./src/"
   },
   "compatibility_flags": [
     "nodejs_compat"
@@ -33,4 +34,7 @@
       "0 5 * * MON"
     ]
   },
+  "placement": {
+    "mode": "smart"
+  }
 }

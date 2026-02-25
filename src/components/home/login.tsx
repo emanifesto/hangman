@@ -48,15 +48,13 @@ function LogoutButton( {handleSignOut}: {handleSignOut: MouseEventHandler}){
 }
 
 async function handleCredentialResponse(response: any, gameData: Boolean | Object = false): Promise<boolean> {
-    const url: string = "https://hangman-26m.pages.dev/"
-
     let body: Object
 
     gameData ?
         body = {response: response, gameData: gameData} :
         body = {response: response}
 
-    const serverLoginResponse: Response = await fetch(`${url}user-login`, {
+    const serverLoginResponse: Response = await fetch(`/user-login`, {
         method: "POST",
         headers: {"content-type": 'application/json'},
         body: JSON.stringify(body)

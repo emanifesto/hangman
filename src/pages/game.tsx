@@ -45,7 +45,7 @@ export default function Game(){
     const [timeLeft, setTimeLeft] = useState<number>(45)
 
     useEffect(() => {
-        const timerInterval: number = setInterval(() => {
+        const timerInterval: NodeJS.Timeout = setInterval(() => {
             setTimeLeft(prev => prev - 1)
         }, 1000)
 
