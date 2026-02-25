@@ -109,5 +109,15 @@ export default{
         }
 
         return env.ASSETS.fetch(request)
+    },
+
+    async scheduled(controller: any, env: any, ctx: any){
+        switch (controller.cron){
+            case "0 5 * * *":
+                ctx.waitUntil(BF.clearDailyEntries(env))
+                break
+            case "0 5 0 0 MON":
+                break
+        }
     }
 }

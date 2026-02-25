@@ -37,3 +37,8 @@ export function decodeJWT(token: any, position: number) {
     );
     return JSON.parse(jsonObject);
 }
+
+export async function clearDailyEntries(env: any){
+    const query = env.DB.prepare('UPDATE Users SET (dailyGamesWon, dailyGamesLost, dailyFlawless, dailyTimePlayed, dailyLivesLeft, dailyScore) = (0, 0, 0, 0, 0, 0)')
+    await query.run()
+}
