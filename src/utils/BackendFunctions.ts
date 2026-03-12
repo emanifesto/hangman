@@ -1,5 +1,5 @@
 export function testForInvalidOrigin(origin: string): boolean{
-    if ((origin === "https://hangman-26m.pages.dev") || origin === "https://hangman.damisaas.com"){
+    if ((origin === "https://hangman-26m.pages.dev") || origin === "https://hangman.damisaas.com" || origin === "http://127.0.0.1:8787"){//delete this later
         return false
     }
     return true

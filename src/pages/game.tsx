@@ -6,7 +6,7 @@ import Lives from '../components/game/lives.tsx'
 import Keyboard from '../components/game/keyboard.tsx'
 import MobileInputField from '../components/game/input.tsx'
 
-const word: string = "That Time I Got Reincarnated as a Slime"
+const word: string = "Work in Progess!!!"
 const hideWord: Function = (word: string): string => {
     return word.replace(/[a-zA-Z]/g, "_")
 }

@@ -25,7 +25,8 @@
     {
       "binding": "DB",
       "database_name": "hangman",
-      "database_id": "bb53dfa2-3be5-4de7-af2d-898b73c34280"
+      "database_id": "bb53dfa2-3be5-4de7-af2d-898b73c34280",
+      "remote": true
     }
   ],
   "triggers": {

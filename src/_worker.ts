@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import jwtToPem from 'jwk-to-pem'
 import * as BF from './utils/BackendFunctions.ts'
 
 export default{
@@ -43,18 +44,20 @@ export default{
             }
         
             const googleJWTkid = googleJWTHeader.kid
-            let googlePublicKey
-            for (const certificate of googleCertificates){
-                if ((certificate.kid == googleJWTkid) && (certificate.alg == googleJWTAlg)){
-                    googlePublicKey = certificate.n
+            let certificate
+            for (const cert of googleCertificates){
+                if ((cert.kid == googleJWTkid) && (cert.alg == googleJWTAlg)){
+                    certificate = cert
                     break
                 }
             }
         
-            if (!googlePublicKey){
+            if (!certificate){
                 console.log(`Google Certificates do not contain public key with kid - ${googleJWTkid}`)
                 return new Response('Fail', {status: 400})
             }
+
+            const googlePublicKey = jwtToPem(certificate)
         
             let googleJWTPayload: any
             try {
